@@ -48,13 +48,17 @@ export function Runway() {
         {/* Header */}
         <div className="relative z-20 flex items-end justify-between px-8 pt-10 md:px-16">
           <div>
-            <div className="font-mono text-[10px] tracking-[0.5em] text-gold/70">— ROLLING SHOWROOM</div>
+            <div className="font-mono text-[10px] tracking-[0.5em] text-gold/70">
+              — ROLLING SHOWROOM
+            </div>
             <h2 className="mt-4 font-display text-5xl leading-[0.95] tracking-tight md:text-7xl">
               The fleet, <span className="italic gold-shine">in motion</span>.
             </h2>
           </div>
           <div className="hidden text-right font-mono text-[10px] tracking-[0.4em] text-muted-foreground md:block">
-            SCROLL · DRIVE<br />03 / VEHICLES
+            SCROLL · DRIVE
+            <br />
+            03 / VEHICLES
           </div>
         </div>
 
@@ -76,10 +80,7 @@ export function Runway() {
         {/* Scrub bar */}
         <div className="relative z-20 mx-8 mb-8 md:mx-16">
           <div className="h-px w-full bg-border">
-            <motion.div
-              className="h-px bg-gold"
-              style={{ scaleX: p, transformOrigin: "left" }}
-            />
+            <motion.div className="h-px bg-gold" style={{ scaleX: p, transformOrigin: "left" }} />
           </div>
           <div className="mt-3 flex justify-between font-mono text-[10px] tracking-[0.3em] text-muted-foreground">
             <span>01 · APPROACH</span>
@@ -109,16 +110,23 @@ function RunwayCar({
   const cardOpacity = useTransform(
     progress,
     [Math.max(0, start - 0.05), peak, Math.min(1, end + 0.05)],
-    [0.3, 1, 0.3]
+    [0.3, 1, 0.3],
   );
   const cardScale = useTransform(progress, [start, peak, end], [0.88, 1.05, 0.88]);
   const labelY = useTransform(progress, [start, peak, end], [40, 0, 40]);
 
   return (
     <div className="flex w-screen flex-shrink-0 items-center justify-center px-12">
-      <motion.div style={{ opacity: cardOpacity, scale: cardScale }} className="relative w-full max-w-[1100px]">
+      <motion.div
+        style={{ opacity: cardOpacity, scale: cardScale }}
+        className="relative w-full max-w-[1100px]"
+      >
         <div className="absolute -inset-16 rounded-full bg-gradient-radial from-gold/15 via-transparent to-transparent blur-3xl" />
-        <img src={car.img} alt={car.name} className="relative w-full drop-shadow-[0_60px_60px_rgba(0,0,0,0.6)]" />
+        <img
+          src={car.img}
+          alt={car.name}
+          className="relative w-full drop-shadow-[0_60px_60px_rgba(0,0,0,0.6)]"
+        />
 
         {/* Floor shadow */}
         <div className="absolute -bottom-2 left-[12%] right-[12%] h-8 rounded-full bg-black/70 blur-2xl" />

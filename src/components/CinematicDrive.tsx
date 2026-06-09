@@ -1,4 +1,12 @@
-import { motion, useScroll, useTransform, useSpring, useMotionValue, useMotionTemplate, useVelocity } from "motion/react";
+import {
+  motion,
+  useScroll,
+  useTransform,
+  useSpring,
+  useMotionValue,
+  useMotionTemplate,
+  useVelocity,
+} from "motion/react";
 import { useEffect, useRef, useState } from "react";
 import carSide from "@/assets/car-side.png";
 import road from "@/assets/road.jpg";
@@ -87,7 +95,10 @@ export function CinematicDrive() {
         </motion.div>
 
         {/* Lane stripes — animated dash flying past */}
-        <motion.div style={{ opacity: linesOpacity }} className="pointer-events-none absolute inset-x-0 bottom-[18%] h-px">
+        <motion.div
+          style={{ opacity: linesOpacity }}
+          className="pointer-events-none absolute inset-x-0 bottom-[18%] h-px"
+        >
           <div
             className="absolute inset-0"
             style={{
@@ -107,7 +118,10 @@ export function CinematicDrive() {
         </motion.div>
 
         {/* Horizontal speed streaks */}
-        <motion.div style={{ opacity: linesOpacity }} className="pointer-events-none absolute inset-0">
+        <motion.div
+          style={{ opacity: linesOpacity }}
+          className="pointer-events-none absolute inset-0"
+        >
           {Array.from({ length: 22 }).map((_, i) => (
             <motion.div
               key={i}
@@ -129,7 +143,9 @@ export function CinematicDrive() {
           style={{ y: t1Y, opacity: t1Opacity }}
           className="absolute inset-x-0 top-[14%] z-20 px-6 text-center"
         >
-          <div className="font-mono text-[10px] tracking-[0.55em] text-gold/70">— SCENE 01 / THE ARRIVAL</div>
+          <div className="font-mono text-[10px] tracking-[0.55em] text-gold/70">
+            — SCENE 01 / THE ARRIVAL
+          </div>
           <h2 className="mt-6 font-display text-6xl leading-[0.92] tracking-tight md:text-[10rem]">
             Engineered for <span className="italic gold-shine">the road</span>.
           </h2>
@@ -140,7 +156,9 @@ export function CinematicDrive() {
           style={{ y: t2Y, opacity: t2Opacity }}
           className="absolute inset-x-0 top-[14%] z-20 px-6 text-center"
         >
-          <div className="font-mono text-[10px] tracking-[0.55em] text-gold/70">— SCENE 02 / THE DEPARTURE</div>
+          <div className="font-mono text-[10px] tracking-[0.55em] text-gold/70">
+            — SCENE 02 / THE DEPARTURE
+          </div>
           <h2 className="mt-6 font-display text-6xl leading-[0.92] tracking-tight md:text-[10rem]">
             And gone in a <span className="italic gold-shine">breath</span>.
           </h2>
@@ -243,7 +261,7 @@ function TelemetryHUD({ progress }: { progress: ReturnType<typeof useSpring> }) 
   useEffect(() => rounded.on("change", (v) => setText(Math.round(v).toString())), [rounded]);
 
   const gear = useTransform(progress, (pp) =>
-    pp < 0.15 ? "2" : pp < 0.32 ? "3" : pp < 0.5 ? "4" : pp < 0.72 ? "6" : pp < 0.88 ? "5" : "3"
+    pp < 0.15 ? "2" : pp < 0.32 ? "3" : pp < 0.5 ? "4" : pp < 0.72 ? "6" : pp < 0.88 ? "5" : "3",
   );
   const [gearText, setGearText] = useState("2");
   useEffect(() => gear.on("change", (v) => setGearText(v)), [gear]);
@@ -254,7 +272,9 @@ function TelemetryHUD({ progress }: { progress: ReturnType<typeof useSpring> }) 
   return (
     <div className="absolute bottom-10 right-8 z-20 hidden items-end gap-4 md:flex">
       <div className="rounded-2xl border border-gold/30 bg-background/50 px-6 py-4 backdrop-blur-md">
-        <div className="font-mono text-[10px] tracking-[0.3em] text-muted-foreground">SPEED · KM/H</div>
+        <div className="font-mono text-[10px] tracking-[0.3em] text-muted-foreground">
+          SPEED · KM/H
+        </div>
         <div className="font-display text-5xl text-gold tabular-nums">{text}</div>
       </div>
       <div className="rounded-2xl border border-gold/30 bg-background/50 px-6 py-4 backdrop-blur-md">
@@ -263,10 +283,22 @@ function TelemetryHUD({ progress }: { progress: ReturnType<typeof useSpring> }) 
       </div>
       <div className="relative h-20 w-20">
         <svg viewBox="0 0 36 36" className="h-full w-full -rotate-90">
-          <circle cx="18" cy="18" r="15.9" fill="none" stroke="currentColor" strokeWidth="2" className="text-border" />
+          <circle
+            cx="18"
+            cy="18"
+            r="15.9"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            className="text-border"
+          />
           <motion.circle
-            cx="18" cy="18" r="15.9" fill="none"
-            stroke="currentColor" strokeWidth="2"
+            cx="18"
+            cy="18"
+            r="15.9"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
             className="text-gold"
             strokeDasharray={arcStr}
             strokeLinecap="round"

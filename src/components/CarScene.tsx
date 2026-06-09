@@ -1,5 +1,5 @@
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Environment, Float, MeshTransmissionMaterial, OrbitControls } from "@react-three/drei";
+import { Environment, Float, MeshTransmissionMaterial } from "@react-three/drei";
 import { useRef } from "react";
 import type { Mesh, Group } from "three";
 
@@ -24,7 +24,13 @@ function RimDisc({ position }: { position: [number, number, number] }) {
   return (
     <mesh ref={ref} position={position} rotation={[Math.PI / 2, 0, 0]}>
       <cylinderGeometry args={[0.7, 0.7, 0.05, 12]} />
-      <meshStandardMaterial color="#d4a84c" metalness={1} roughness={0.15} emissive="#a87a2a" emissiveIntensity={0.2} />
+      <meshStandardMaterial
+        color="#d4a84c"
+        metalness={1}
+        roughness={0.15}
+        emissive="#a87a2a"
+        emissiveIntensity={0.2}
+      />
     </mesh>
   );
 }
@@ -39,11 +45,23 @@ function Emblem() {
       <group ref={ref}>
         <mesh>
           <torusGeometry args={[1.6, 0.06, 32, 128]} />
-          <meshStandardMaterial color="#e8c478" metalness={1} roughness={0.1} emissive="#d4a84c" emissiveIntensity={0.4} />
+          <meshStandardMaterial
+            color="#e8c478"
+            metalness={1}
+            roughness={0.1}
+            emissive="#d4a84c"
+            emissiveIntensity={0.4}
+          />
         </mesh>
         <mesh rotation={[Math.PI / 2, 0, 0]}>
           <torusGeometry args={[1.6, 0.06, 32, 128]} />
-          <meshStandardMaterial color="#e8c478" metalness={1} roughness={0.1} emissive="#d4a84c" emissiveIntensity={0.4} />
+          <meshStandardMaterial
+            color="#e8c478"
+            metalness={1}
+            roughness={0.1}
+            emissive="#d4a84c"
+            emissiveIntensity={0.4}
+          />
         </mesh>
         <mesh>
           <icosahedronGeometry args={[0.6, 0]} />
@@ -64,10 +82,10 @@ function Emblem() {
 
 export function WheelScene() {
   return (
-    <Canvas camera={{ position: [0, 0, 5], fov: 40 }} dpr={[1, 2]}>
+    <Canvas camera={{ position: [0, 0, 5], fov: 40 }} dpr={[1, 1.5]}>
       <ambientLight intensity={0.4} />
-      <spotLight position={[5, 5, 5]} intensity={50} angle={0.4} penumbra={1} color="#ffd28a" />
-      <spotLight position={[-5, -3, 3]} intensity={30} angle={0.5} penumbra={1} color="#fff" />
+      <spotLight position={[5, 5, 5]} intensity={32} angle={0.4} penumbra={1} color="#ffd28a" />
+      <spotLight position={[-5, -3, 3]} intensity={20} angle={0.5} penumbra={1} color="#fff" />
       <Float speed={1.2} rotationIntensity={0.4} floatIntensity={0.8}>
         <group rotation={[0.2, 0.4, 0]}>
           <Wheel position={[0, 0, 0]} />
@@ -81,13 +99,12 @@ export function WheelScene() {
 
 export function EmblemScene() {
   return (
-    <Canvas camera={{ position: [0, 0, 6], fov: 45 }} dpr={[1, 2]}>
+    <Canvas camera={{ position: [0, 0, 6], fov: 45 }} dpr={[1, 1.5]}>
       <ambientLight intensity={0.3} />
-      <pointLight position={[5, 5, 5]} intensity={60} color="#ffd28a" />
-      <pointLight position={[-5, -2, -3]} intensity={30} color="#a87a2a" />
+      <pointLight position={[5, 5, 5]} intensity={40} color="#ffd28a" />
+      <pointLight position={[-5, -2, -3]} intensity={20} color="#a87a2a" />
       <Emblem />
       <Environment preset="warehouse" />
-      <OrbitControls enableZoom={false} enablePan={false} autoRotate autoRotateSpeed={1} />
     </Canvas>
   );
 }
