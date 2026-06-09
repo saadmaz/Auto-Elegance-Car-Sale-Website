@@ -48,24 +48,20 @@ export function Hero() {
       {/* ── Car ─────────────────────────────────────────────── */}
       {/* Bottom-right, natural aspect ratio, blended into bg   */}
       <motion.div
-        initial={{ x: "18%", opacity: 0 }}
+        initial={{ x: "100%", opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
-        transition={{ duration: 1.9, ease: EASE, delay: 0.3 }}
+        transition={{ duration: 1.6, ease: EASE, delay: 0.3 }}
         style={{ y: carY, x: mx }}
         className="pointer-events-none absolute bottom-0 right-[-3%] w-[64%] md:right-0 md:w-[58%] lg:w-[62%]"
       >
-        {/* Left-side blend so car never competes with text */}
-        <div className="absolute inset-y-0 left-0 z-10 w-[52%] bg-linear-to-r from-background via-background/75 to-transparent" />
-        {/* Bottom fade into section floor */}
-        <div className="absolute inset-x-0 bottom-0 z-10 h-[30%] bg-linear-to-t from-background to-transparent" />
         {/* Ambient gold glow beneath tyres */}
         <div className="absolute bottom-[6%] left-[35%] right-[8%] h-[18%] rounded-full bg-gold/14 blur-[72px]" />
 
         <motion.img
           src={heroCar}
           alt="Luxury sports coupe"
-          style={{ y: my, opacity }}
-          className="relative w-full drop-shadow-[0_20px_64px_rgba(212,168,76,0.18)]"
+          style={{ y: my, opacity, mixBlendMode: "screen" }}
+          className="relative w-full"
           width={1920}
           height={1080}
           fetchPriority="high"
@@ -96,7 +92,7 @@ export function Hero() {
 
         {/* ── Headline block (vertically centred in remaining space) */}
         <div className="flex flex-1 flex-col justify-center">
-          <h1 className="font-display font-light">
+          <h1 className="font-display font-medium">
 
             {/* "Buy your" — masked slide-up */}
             <div className="overflow-hidden">
