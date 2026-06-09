@@ -1,8 +1,8 @@
 import { motion, useScroll, useTransform, useSpring } from "motion/react";
 import { useRef } from "react";
-import car1 from "@/assets/car-1.png";
-import car2 from "@/assets/car-2.png";
-import car3 from "@/assets/car-3.png";
+import car1 from "@/assets/car-1.webp";
+import car2 from "@/assets/car-2.webp";
+import car3 from "@/assets/car-3.webp";
 
 const FLEET = [
   { img: car1, name: "Porsche 911 Carrera", spec: "Silver Pearl · 2023", ref: "REF · 087" },

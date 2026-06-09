@@ -8,8 +8,8 @@ import {
   useVelocity,
 } from "motion/react";
 import { useEffect, useRef, useState } from "react";
-import carSide from "@/assets/car-side.png";
-import road from "@/assets/road.jpg";
+import carSide from "@/assets/car-side.webp";
+import road from "@/assets/road.webp";
 
 export function CinematicDrive() {
   const ref = useRef<HTMLDivElement>(null);

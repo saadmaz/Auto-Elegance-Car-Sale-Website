@@ -1,11 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "motion/react";
+import { motion, useScroll, useTransform, useSpring, AnimatePresence, useMotionValue } from "motion/react";
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { WheelScene, EmblemScene } from "@/components/CarScene";
-import heroCar from "@/assets/hero-car.png";
-import car1 from "@/assets/car-1.png";
-import car2 from "@/assets/car-2.png";
-import car3 from "@/assets/car-3.png";
+import heroCar from "@/assets/hero-car.webp";
+import car1 from "@/assets/car-1.webp";
+import car2 from "@/assets/car-2.webp";
+import car3 from "@/assets/car-3.webp";
 import carTop from "@/assets/car-top.jpg";
 
 const CinematicDrive = lazy(() =>
@@ -69,6 +69,29 @@ const COLLECTION = [
     tag: "Daytona Grey",
   },
 ];
+
+/** 3-D perspective tilt driven by mouse position — wraps any content */
+function TiltCard({ children }: { children: React.ReactNode }) {
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const rotateX = useSpring(useTransform(my, [-0.5, 0.5], [7, -7]), { stiffness: 280, damping: 28 });
+  const rotateY = useSpring(useTransform(mx, [-0.5, 0.5], [-7, 7]), { stiffness: 280, damping: 28 });
+
+  return (
+    <motion.div
+      style={{ rotateX, rotateY, transformPerspective: 1100 }}
+      onMouseMove={(e: React.MouseEvent<HTMLDivElement>) => {
+        const r = e.currentTarget.getBoundingClientRect();
+        mx.set((e.clientX - r.left) / r.width - 0.5);
+        my.set((e.clientY - r.top) / r.height - 0.5);
+      }}
+      onMouseLeave={() => { mx.set(0); my.set(0); }}
+      className="relative"
+    >
+      {children}
+    </motion.div>
+  );
+}
 
 function Nav() {
   const [open, setOpen] = useState(false);
@@ -194,8 +217,8 @@ function Hero() {
     const onMove = (e: MouseEvent) => {
       const x = (e.clientX / window.innerWidth - 0.5) * 2;
       const y = (e.clientY / window.innerHeight - 0.5) * 2;
-      sx.set(x * 30);
-      sy.set(y * 20);
+      sx.set(x * 55);
+      sy.set(y * 38);
     };
     window.addEventListener("mousemove", onMove);
     return () => window.removeEventListener("mousemove", onMove);
@@ -289,16 +312,21 @@ function Hero() {
           </motion.div>
         </div>
 
-        {/* Hero car - giant, parallax & tilt */}
+        {/* Hero car — entrance drive-in + scroll parallax */}
         <motion.div
-          style={{ y: carY, rotate: carRotate, scale: carScale, opacity: fade }}
+          initial={{ x: "18%", opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          transition={{ duration: 1.9, ease: [0.22, 1, 0.36, 1], delay: 0.25 }}
+          style={{ y: carY, rotate: carRotate, scale: carScale }}
           className="pointer-events-none absolute inset-x-0 -bottom-[10%] flex justify-center"
         >
+          {/* Gold ambient glow */}
+          <div className="absolute inset-x-[15%] bottom-[10%] h-[30%] rounded-full bg-gold/20 blur-[80px]" />
           <motion.img
             src={heroCar}
             alt="Luxury black sports coupe"
-            style={{ x: sx, y: sy }}
-            className="w-[140vw] max-w-[1800px] drop-shadow-[0_60px_80px_rgba(212,168,76,0.25)]"
+            style={{ x: sx, y: sy, opacity: fade }}
+            className="relative w-[140vw] max-w-[1800px] drop-shadow-[0_60px_80px_rgba(212,168,76,0.3)]"
             width={1920}
             height={1080}
             fetchPriority="high"
@@ -444,16 +472,19 @@ function Process() {
       n: "01",
       t: "We search",
       d: "You tell us the dream. We crawl auctions, private dealers, and our European network — surfacing only what fits.",
+      img: car1,
     },
     {
       n: "02",
       t: "We verify",
       d: "Each candidate passes a 32-point inspection, full history check, and an in-person review by our specialists.",
+      img: car2,
     },
     {
       n: "03",
       t: "We deliver",
       d: "Paperwork, transport, registration — handled. The car arrives at your door, fueled, detailed, and ready.",
+      img: car3,
     },
   ];
   return (
@@ -481,18 +512,34 @@ function Process() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.8, delay: i * 0.15 }}
-              className="group relative overflow-hidden rounded-3xl border border-border bg-card p-8 transition hover:border-gold/40"
+              className="group relative overflow-hidden rounded-3xl border border-border bg-card p-8 transition-all duration-500 hover:border-gold/50"
             >
-              <div className="font-display text-7xl text-gold/30 transition group-hover:text-gold/60">
-                {s.n}
+              {/* Car image — revealed on hover */}
+              <div className="pointer-events-none absolute inset-0 overflow-hidden rounded-3xl opacity-0 transition-opacity duration-700 group-hover:opacity-100">
+                <img
+                  src={s.img}
+                  alt=""
+                  aria-hidden="true"
+                  className="h-full w-full scale-110 object-cover object-center transition-transform duration-1000 group-hover:scale-100"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-card/85 via-card/60 to-card/92" />
               </div>
-              <h3 className="mt-8 font-display text-3xl">{s.t}</h3>
-              <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{s.d}</p>
-              <div className="mt-12 flex items-center justify-between border-t border-border pt-6 text-xs tracking-widest text-muted-foreground">
-                <span>STEP {s.n}</span>
-                <span className="text-gold">→</span>
+
+              <div className="relative">
+                <div className="font-display text-7xl text-gold/30 transition-colors duration-500 group-hover:text-gold/70">
+                  {s.n}
+                </div>
+                <h3 className="mt-8 font-display text-3xl">{s.t}</h3>
+                <p className="mt-4 text-sm leading-relaxed text-muted-foreground">{s.d}</p>
+                <div className="mt-12 flex items-center justify-between border-t border-border/60 pt-6 text-xs tracking-widest text-muted-foreground">
+                  <span>STEP {s.n}</span>
+                  <span className="text-gold transition-transform duration-300 group-hover:translate-x-1">→</span>
+                </div>
               </div>
-              <div className="pointer-events-none absolute -right-20 -top-20 h-60 w-60 rounded-full bg-gold/0 blur-3xl transition group-hover:bg-gold/10" />
+
+              <div className="pointer-events-none absolute -right-20 -top-20 h-60 w-60 rounded-full bg-gold/0 blur-3xl transition-colors duration-700 group-hover:bg-gold/12" />
             </motion.div>
           ))}
         </div>
@@ -527,20 +574,24 @@ function Collection() {
               transition={{ duration: 1 }}
               className={`grid items-center gap-12 md:grid-cols-2 ${i % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""}`}
             >
-              <div className="relative">
-                <div className="absolute -inset-8 rounded-full bg-gradient-radial from-gold/20 via-transparent to-transparent blur-2xl" />
-                <motion.img
-                  whileHover={{ scale: 1.05, rotate: -2 }}
-                  transition={{ type: "spring", stiffness: 150 }}
-                  src={car.img}
-                  alt={car.name}
-                  className="relative w-full"
-                  loading="lazy"
-                  decoding="async"
-                  width={1280}
-                  height={768}
-                />
-              </div>
+              <TiltCard>
+                <div className="relative">
+                  <div className="absolute -inset-8 rounded-full bg-gradient-radial from-gold/25 via-transparent to-transparent blur-2xl transition-opacity duration-500 group-hover:opacity-150" />
+                  <div className="group/img relative overflow-hidden">
+                    <img
+                      src={car.img}
+                      alt={car.name}
+                      className="relative w-full transition-transform duration-700 group-hover/img:scale-[1.03]"
+                      loading="lazy"
+                      decoding="async"
+                      width={1280}
+                      height={768}
+                    />
+                    {/* Paint glint sweep */}
+                    <div className="pointer-events-none absolute inset-y-0 left-0 w-1/3 -skew-x-12 -translate-x-full bg-gradient-to-r from-transparent via-white/25 to-transparent transition-transform duration-[900ms] ease-in-out group-hover/img:translate-x-[500%]" />
+                  </div>
+                </div>
+              </TiltCard>
               <div>
                 <div className="flex items-center gap-3 text-xs tracking-[0.3em] text-gold">
                   <span className="h-px w-8 bg-gold" />
@@ -609,7 +660,20 @@ function Voices() {
       id="voices"
       className="content-auto relative overflow-hidden border-y border-border bg-card py-32 md:py-48"
     >
-      <div className="mx-auto max-w-[1600px] px-6 md:px-12">
+      {/* Atmospheric car backdrop */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 select-none overflow-hidden">
+        <img
+          src={heroCar}
+          alt=""
+          aria-hidden="true"
+          className="w-full -scale-x-100 opacity-[0.055]"
+          loading="lazy"
+          decoding="async"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-card via-card/40 to-transparent" />
+      </div>
+
+      <div className="relative mx-auto max-w-[1600px] px-6 md:px-12">
         <div className="text-xs tracking-[0.4em] text-gold/80">— VOICES</div>
         <h2 className="mt-6 max-w-3xl font-display text-6xl leading-[1] tracking-tight md:text-7xl">
           4,200 owners. <span className="italic text-foreground/40">A few of their words.</span>
@@ -654,7 +718,20 @@ function Contact() {
 
   return (
     <section id="contact" className="content-auto relative overflow-hidden py-32 md:py-48">
-      <div className="mx-auto grid max-w-[1600px] gap-16 px-6 md:grid-cols-2 md:px-12">
+      {/* Car teaser backdrop */}
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 select-none overflow-hidden">
+        <img
+          src={heroCar}
+          alt=""
+          aria-hidden="true"
+          className="w-full opacity-[0.06]"
+          loading="lazy"
+          decoding="async"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
+      </div>
+
+      <div className="relative mx-auto grid max-w-[1600px] gap-16 px-6 md:grid-cols-2 md:px-12">
         <div>
           <div className="text-xs tracking-[0.4em] text-gold/80">— CONTACT</div>
           <h2 className="mt-6 font-display text-6xl leading-[1] tracking-tight md:text-8xl">

@@ -5,9 +5,9 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-display: "Bodoni Moda", "Didot", "Bodoni MT", "Book Antiqua", serif;
-  --font-sans: "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
-  --font-mono: "Space Mono", ui-monospace, monospace;
+  --font-display: "Playfair Display", "Georgia", "Times New Roman", serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, monospace;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -74,7 +74,7 @@
     background: var(--color-background);
     color: var(--color-foreground);
     overflow-x: hidden;
-    letter-spacing: -0.01em;
+    letter-spacing: 0;
   }
 
   img {
@@ -87,8 +87,7 @@
     font-family: var(--font-display);
     font-weight: 400;
     font-optical-sizing: auto;
-    font-variation-settings: "opsz" 72;
-    letter-spacing: -0.025em;
+    letter-spacing: -0.02em;
   }
   .font-mono {
     font-family: var(--font-mono);
