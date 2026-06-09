@@ -31,7 +31,6 @@ export function Hero() {
       ref={ref}
       className="content-auto relative min-h-[120vh] overflow-hidden hero-gradient grain"
     >
-      {/* Background grid */}
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.08]"
         style={{
@@ -41,15 +40,14 @@ export function Hero() {
         }}
       />
 
-      {/* Floating 3D emblem */}
       <motion.div
         style={{ y }}
-        className="absolute right-[6%] top-[18%] hidden h-[380px] w-[380px] lg:block"
+        className="absolute right-[6%] top-[18%] hidden h-95 w-95 lg:block"
       >
         <EmblemScene />
       </motion.div>
 
-      <div className="relative mx-auto flex min-h-screen max-w-[1600px] flex-col justify-center px-6 pt-32 md:px-12">
+      <div className="relative mx-auto flex min-h-screen max-w-400 flex-col justify-center px-6 pb-24 pt-36 md:px-16">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -64,19 +62,19 @@ export function Hero() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 0.2 }}
-          className="mt-8 font-display text-[14vw] leading-[0.9] tracking-tight md:text-[10rem]"
+          className="mt-10 font-display text-[14vw] leading-[0.9] tracking-tight md:text-[10rem]"
         >
           <span className="block">Buy your</span>
-          <span className="block gold-shine italic">dream car.</span>
+          <span className="block italic gold-shine">dream car.</span>
           <span className="block text-foreground/40">Online.</span>
         </motion.h1>
 
-        <div className="mt-12 grid gap-12 md:grid-cols-2 md:items-end">
+        <div className="mt-16 grid gap-14 md:grid-cols-2 md:items-end">
           <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.6, duration: 1 }}
-            className="max-w-md text-base leading-relaxed text-muted-foreground md:text-lg"
+            className="max-w-md text-base leading-[1.8] text-muted-foreground md:text-lg"
           >
             We search Europe, verify every detail, and deliver to your doorstep. No haggling. No
             surprises. Just the car you've been dreaming of — handed over with the keys, by people
@@ -91,7 +89,7 @@ export function Hero() {
           >
             <a
               href="#collection"
-              className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-gold px-8 py-4 text-sm font-medium tracking-wide text-primary-foreground transition hover:scale-[1.02]"
+              className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-gold px-9 py-4 text-sm font-medium tracking-wide text-primary-foreground transition hover:scale-[1.02]"
             >
               <span className="relative z-10">View the collection</span>
               <svg
@@ -103,31 +101,30 @@ export function Hero() {
               >
                 <path d="M5 12h14M13 5l7 7-7 7" />
               </svg>
-              <span className="absolute inset-0 bg-gradient-to-r from-gold via-amber-200 to-gold opacity-0 transition group-hover:opacity-100" />
+              <span className="absolute inset-0 bg-linear-to-r from-gold via-amber-200 to-gold opacity-0 transition group-hover:opacity-100" />
             </a>
             <a
               href="#contact"
-              className="inline-flex items-center gap-2 rounded-full border border-foreground/20 px-8 py-4 text-sm tracking-wide transition hover:border-gold hover:text-gold"
+              className="inline-flex items-center gap-2 rounded-full border border-foreground/20 px-9 py-4 text-sm tracking-wide transition hover:border-gold hover:text-gold"
             >
               Request a quote
             </a>
           </motion.div>
         </div>
 
-        {/* Hero car — entrance drive-in + scroll parallax */}
         <motion.div
           initial={{ x: "18%", opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{ duration: 1.9, ease: [0.22, 1, 0.36, 1], delay: 0.25 }}
           style={{ y: carY, rotate: carRotate, scale: carScale }}
-          className="pointer-events-none absolute inset-x-0 -bottom-[10%] flex justify-center"
+          className="pointer-events-none absolute inset-x-0 bottom-[-10%] flex justify-center"
         >
           <div className="absolute inset-x-[15%] bottom-[10%] h-[30%] rounded-full bg-gold/20 blur-[80px]" />
           <motion.img
             src={heroCar}
             alt="Luxury black sports coupe"
             style={{ x: sx, y: sy, opacity: fade }}
-            className="relative w-[140vw] max-w-[1800px] drop-shadow-[0_60px_80px_rgba(212,168,76,0.3)]"
+            className="relative w-[140vw] max-w-450 drop-shadow-[0_60px_80px_rgba(212,168,76,0.3)]"
             width={1920}
             height={1080}
             fetchPriority="high"
@@ -135,7 +132,6 @@ export function Hero() {
           />
         </motion.div>
 
-        {/* Stats strip */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -148,9 +144,9 @@ export function Hero() {
             { k: "32 pt", v: "Inspection" },
             { k: "100%", v: "Verified history" },
           ].map((s) => (
-            <div key={s.v} className="bg-background/80 px-6 py-6 backdrop-blur">
+            <div key={s.v} className="bg-background/80 px-8 py-8 backdrop-blur md:px-10">
               <div className="font-display text-3xl text-gold">{s.k}</div>
-              <div className="mt-1 text-xs tracking-widest text-muted-foreground">
+              <div className="mt-2 text-xs tracking-widest text-muted-foreground">
                 {s.v.toUpperCase()}
               </div>
             </div>
@@ -158,7 +154,7 @@ export function Hero() {
         </motion.div>
       </div>
 
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 text-[10px] tracking-[0.4em] text-muted-foreground">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 text-[10px] tracking-[0.4em] text-muted-foreground">
         SCROLL ↓
       </div>
     </section>
