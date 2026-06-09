@@ -5,9 +5,9 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
-  --font-display: "Cormorant Garamond", "Baskerville", "Times New Roman", serif;
-  --font-sans: "Manrope", "Inter", system-ui, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --font-display: "Bodoni Moda", "Didot", "Bodoni MT", "Book Antiqua", serif;
+  --font-sans: "Plus Jakarta Sans", "Inter", system-ui, sans-serif;
+  --font-mono: "Space Mono", ui-monospace, monospace;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -74,7 +74,7 @@
     background: var(--color-background);
     color: var(--color-foreground);
     overflow-x: hidden;
-    letter-spacing: -0.005em;
+    letter-spacing: -0.01em;
   }
 
   img {
@@ -87,10 +87,8 @@
     font-family: var(--font-display);
     font-weight: 400;
     font-optical-sizing: auto;
-    font-variation-settings:
-      "opsz" 144,
-      "SOFT" 30;
-    letter-spacing: -0.035em;
+    font-variation-settings: "opsz" 72;
+    letter-spacing: -0.025em;
   }
   .font-mono {
     font-family: var(--font-mono);
@@ -180,5 +178,29 @@
   .content-auto {
     content-visibility: auto;
     contain-intrinsic-size: 1px 900px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee {
+    animation: none;
+    transform: none;
+  }
+  .animate-float {
+    animation: none;
+  }
+  .gold-shine {
+    animation: none;
+    background: none;
+    -webkit-text-fill-color: inherit;
+    color: var(--color-gold);
+  }
+  .grain::after {
+    display: none;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

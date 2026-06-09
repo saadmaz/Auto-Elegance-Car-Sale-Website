@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { motion, useScroll, useTransform, useSpring } from "motion/react";
-import { lazy, Suspense, useEffect, useRef } from "react";
+import { motion, useScroll, useTransform, useSpring, AnimatePresence } from "motion/react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { WheelScene, EmblemScene } from "@/components/CarScene";
 import heroCar from "@/assets/hero-car.png";
 import car1 from "@/assets/car-1.png";
@@ -71,9 +71,14 @@ const COLLECTION = [
 ];
 
 function Nav() {
+  const [open, setOpen] = useState(false);
+
   return (
     <header className="fixed top-0 z-50 w-full">
-      <div className="mx-auto flex max-w-[1600px] items-center justify-between px-6 py-5 md:px-12">
+      {/* Gradient veil for legibility */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-background/85 to-transparent" />
+
+      <div className="relative mx-auto flex max-w-[1600px] items-center justify-between px-6 py-5 md:px-12">
         <a href="#" className="flex items-center gap-3">
           <div className="flex h-10 w-10 items-center justify-center rounded-full border border-gold/40">
             <span className="font-display text-xl text-gold">M</span>
@@ -85,6 +90,7 @@ function Nav() {
             </div>
           </div>
         </a>
+
         <nav className="hidden items-center gap-10 md:flex">
           {NAV.map((n) => (
             <a
@@ -97,14 +103,78 @@ function Nav() {
             </a>
           ))}
         </nav>
-        <a
-          href="#contact"
-          className="group relative inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/5 px-5 py-2.5 text-sm text-foreground backdrop-blur transition hover:bg-gold/10"
-        >
-          <span className="h-1.5 w-1.5 rounded-full bg-gold animate-pulse" />
-          Request a search
-        </a>
+
+        <div className="flex items-center gap-3">
+          <a
+            href="#contact"
+            className="hidden md:inline-flex items-center gap-2 rounded-full border border-gold/40 bg-gold/5 px-5 py-2.5 text-sm text-foreground backdrop-blur transition hover:bg-gold/10"
+          >
+            <span className="h-1.5 w-1.5 rounded-full bg-gold animate-pulse" />
+            Request a search
+          </a>
+
+          {/* Hamburger — mobile only */}
+          <button
+            onClick={() => setOpen((v) => !v)}
+            aria-label={open ? "Close menu" : "Open menu"}
+            className="flex h-10 w-10 flex-col items-center justify-center gap-[5px] md:hidden"
+          >
+            <motion.div
+              animate={open ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }}
+              transition={{ duration: 0.25, ease: [0.25, 0, 0, 1] }}
+              className="h-px w-6 bg-foreground origin-center"
+            />
+            <motion.div
+              animate={open ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
+              transition={{ duration: 0.2 }}
+              className="h-px w-4 self-end bg-foreground"
+            />
+            <motion.div
+              animate={open ? { rotate: -45, y: -5 } : { rotate: 0, y: 0 }}
+              transition={{ duration: 0.25, ease: [0.25, 0, 0, 1] }}
+              className="h-px w-6 bg-foreground origin-center"
+            />
+          </button>
+        </div>
       </div>
+
+      {/* Mobile drawer */}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.32, ease: [0.25, 0, 0, 1] }}
+            className="overflow-hidden border-b border-border bg-background/96 backdrop-blur-xl md:hidden"
+          >
+            <nav className="mx-auto max-w-[1600px] px-6 pb-8 pt-2">
+              {NAV.map((n, i) => (
+                <motion.a
+                  key={n.href}
+                  href={n.href}
+                  onClick={() => setOpen(false)}
+                  initial={{ opacity: 0, x: -16 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.04, duration: 0.28 }}
+                  className="flex items-center justify-between border-b border-border/40 py-5 font-display text-3xl text-foreground/80 transition hover:text-gold"
+                >
+                  {n.label}
+                  <span className="text-sm text-gold/50">→</span>
+                </motion.a>
+              ))}
+              <a
+                href="#contact"
+                onClick={() => setOpen(false)}
+                className="mt-6 flex items-center justify-center gap-2 rounded-full bg-gold px-8 py-4 text-sm tracking-wide text-primary-foreground transition hover:scale-[1.01]"
+              >
+                <span className="h-1.5 w-1.5 rounded-full bg-primary-foreground/60" />
+                Request a search
+              </a>
+            </nav>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
@@ -231,6 +301,8 @@ function Hero() {
             className="w-[140vw] max-w-[1800px] drop-shadow-[0_60px_80px_rgba(212,168,76,0.25)]"
             width={1920}
             height={1080}
+            fetchPriority="high"
+            decoding="async"
           />
         </motion.div>
 
@@ -341,6 +413,7 @@ function Atelier() {
               alt="Aerial luxury car"
               className="h-full w-full object-cover"
               loading="lazy"
+              decoding="async"
               width={1920}
               height={1280}
             />
@@ -439,8 +512,8 @@ function Collection() {
               In the garage <span className="italic gold-shine">now</span>.
             </h2>
           </div>
-          <a href="#" className="hidden text-sm text-muted-foreground hover:text-gold md:inline">
-            View all 42 cars →
+          <a href="#contact" className="hidden text-sm text-muted-foreground hover:text-gold md:inline">
+            Request a custom search →
           </a>
         </div>
 
@@ -463,6 +536,7 @@ function Collection() {
                   alt={car.name}
                   className="relative w-full"
                   loading="lazy"
+                  decoding="async"
                   width={1280}
                   height={768}
                 />
@@ -497,10 +571,10 @@ function Collection() {
                     Reserve this car →
                   </a>
                   <a
-                    href="#"
+                    href="#contact"
                     className="inline-flex items-center gap-2 rounded-full border border-foreground/20 px-6 py-3 text-sm transition hover:border-gold hover:text-gold"
                   >
-                    Full spec
+                    Enquire
                   </a>
                 </div>
               </div>
@@ -569,6 +643,15 @@ function Voices() {
 }
 
 function Contact() {
+  const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setStatus("loading");
+    // TODO: replace setTimeout with a real email service call (Resend, Sendgrid, etc.)
+    setTimeout(() => setStatus("success"), 1200);
+  };
+
   return (
     <section id="contact" className="content-auto relative overflow-hidden py-32 md:py-48">
       <div className="mx-auto grid max-w-[1600px] gap-16 px-6 md:grid-cols-2 md:px-12">
@@ -596,39 +679,81 @@ function Contact() {
           </div>
         </div>
 
-        <form
-          className="rounded-3xl border border-border bg-card p-8 md:p-10"
-          onSubmit={(e) => e.preventDefault()}
-        >
-          <div className="grid gap-6">
-            {[
-              { l: "Your name", t: "text" },
-              { l: "Email", t: "email" },
-              { l: "Dream car (brand, model, year)", t: "text" },
-              { l: "Budget", t: "text" },
-            ].map((f) => (
-              <label key={f.l} className="block">
-                <span className="text-xs tracking-widest text-muted-foreground">
-                  {f.l.toUpperCase()}
-                </span>
-                <input
-                  type={f.t}
-                  className="mt-2 w-full border-b border-border bg-transparent py-3 text-lg outline-none transition focus:border-gold"
-                />
-              </label>
-            ))}
-            <label className="block">
-              <span className="text-xs tracking-widest text-muted-foreground">ANYTHING ELSE?</span>
-              <textarea
-                rows={3}
-                className="mt-2 w-full resize-none border-b border-border bg-transparent py-3 text-lg outline-none transition focus:border-gold"
-              />
-            </label>
-            <button className="mt-4 inline-flex items-center justify-center gap-2 rounded-full bg-gold px-8 py-4 text-sm tracking-wide text-primary-foreground transition hover:scale-[1.01]">
-              Send my request →
-            </button>
-          </div>
-        </form>
+        <AnimatePresence mode="wait">
+          {status === "success" ? (
+            <motion.div
+              key="success"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="flex flex-col items-start justify-center rounded-3xl border border-gold/30 bg-card p-8 md:p-10"
+            >
+              <div className="text-xs tracking-[0.4em] text-gold/80">— RECEIVED</div>
+              <div className="mt-6 font-display text-5xl italic gold-shine">Thank you.</div>
+              <p className="mt-6 text-muted-foreground leading-relaxed">
+                We've received your request and will reply within 24 hours.
+              </p>
+              <button
+                onClick={() => setStatus("idle")}
+                className="mt-10 text-sm text-muted-foreground transition hover:text-foreground"
+              >
+                Submit another request →
+              </button>
+            </motion.div>
+          ) : (
+            <motion.form
+              key="form"
+              initial={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="rounded-3xl border border-border bg-card p-8 md:p-10"
+              onSubmit={handleSubmit}
+            >
+              <div className="grid gap-6">
+                {[
+                  { l: "Your name", t: "text", required: true },
+                  { l: "Email", t: "email", required: true },
+                  { l: "Dream car (brand, model, year)", t: "text", required: false },
+                  { l: "Budget", t: "text", required: false },
+                ].map((f) => (
+                  <label key={f.l} className="block">
+                    <span className="text-xs tracking-widest text-muted-foreground">
+                      {f.l.toUpperCase()}
+                      {f.required && <span className="ml-1 text-gold">*</span>}
+                    </span>
+                    <input
+                      type={f.t}
+                      required={f.required}
+                      className="mt-2 w-full border-b border-border bg-transparent py-3 text-lg outline-none transition focus:border-gold"
+                    />
+                  </label>
+                ))}
+                <label className="block">
+                  <span className="text-xs tracking-widest text-muted-foreground">
+                    ANYTHING ELSE?
+                  </span>
+                  <textarea
+                    rows={3}
+                    className="mt-2 w-full resize-none border-b border-border bg-transparent py-3 text-lg outline-none transition focus:border-gold"
+                  />
+                </label>
+                <button
+                  type="submit"
+                  disabled={status === "loading"}
+                  className="mt-4 inline-flex items-center justify-center gap-2 rounded-full bg-gold px-8 py-4 text-sm tracking-wide text-primary-foreground transition hover:scale-[1.01] disabled:cursor-not-allowed disabled:opacity-70"
+                >
+                  {status === "loading" ? (
+                    <>
+                      <span className="h-3.5 w-3.5 animate-spin rounded-full border-2 border-primary-foreground/40 border-t-primary-foreground" />
+                      Sending…
+                    </>
+                  ) : (
+                    "Send my request →"
+                  )}
+                </button>
+              </div>
+            </motion.form>
+          )}
+        </AnimatePresence>
       </div>
     </section>
   );
@@ -648,13 +773,18 @@ function Footer() {
           <div className="flex flex-wrap gap-12 text-sm">
             <div>
               <div className="mb-4 text-xs tracking-widest text-gold">EXPLORE</div>
-              {["Collection", "Process", "Atelier", "Journal"].map((x) => (
+              {[
+                { label: "Collection", href: "#collection" },
+                { label: "Process", href: "#process" },
+                { label: "Atelier", href: "#atelier" },
+                { label: "Contact", href: "#contact" },
+              ].map((x) => (
                 <a
-                  key={x}
-                  href="#"
+                  key={x.label}
+                  href={x.href}
                   className="block py-1 text-muted-foreground hover:text-foreground"
                 >
-                  {x}
+                  {x.label}
                 </a>
               ))}
             </div>

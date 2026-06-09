@@ -30,9 +30,8 @@ export function CinematicDrive() {
   const blur = useTransform(p, [0, 0.18, 0.45, 0.62, 0.85, 1], [10, 2, 0, 0, 5, 14]);
   const filter = useMotionTemplate`blur(${blur}px) saturate(1.05)`;
 
-  // Velocity-driven streaks
+  // Velocity-driven wheel spin
   const v = useVelocity(p);
-  const speedAbs = useTransform(v, (x) => Math.min(Math.abs(x) * 600, 100));
   const linesOpacity = useTransform(p, [0, 0.15, 0.85, 1], [0, 1, 1, 0]);
 
   // Road parallax — way more aggressive
@@ -40,10 +39,6 @@ export function CinematicDrive() {
   const roadScale = useTransform(p, [0, 0.5, 1], [1.15, 1.35, 1.55]);
   const roadBlur = useTransform(p, [0, 0.45, 0.62, 1], [4, 0, 0, 8]);
   const roadFilter = useMotionTemplate`blur(${roadBlur}px)`;
-
-  // Camera shake (subtle, only when "going fast")
-  const shakeX = useTransform(speedAbs, (s) => (Math.random() - 0.5) * (s / 50));
-  const shakeY = useTransform(speedAbs, (s) => (Math.random() - 0.5) * (s / 80));
 
   // Headlight cones — bloom in mid-section
   const lightOpacity = useTransform(p, [0.25, 0.5, 0.75], [0, 1, 0.4]);
@@ -122,17 +117,17 @@ export function CinematicDrive() {
           style={{ opacity: linesOpacity }}
           className="pointer-events-none absolute inset-0"
         >
-          {Array.from({ length: 22 }).map((_, i) => (
+          {Array.from({ length: 10 }).map((_, i) => (
             <motion.div
               key={i}
               className="absolute h-px bg-gradient-to-r from-transparent via-gold/60 to-transparent"
-              style={{ top: `${6 + i * 4}%`, left: "-30%", right: "-30%" }}
+              style={{ top: `${8 + i * 8}%`, left: "-30%", right: "-30%" }}
               animate={{ x: ["-40%", "40%"] }}
               transition={{
-                duration: 0.35 + (i % 5) * 0.18,
+                duration: 0.4 + (i % 4) * 0.2,
                 repeat: Infinity,
                 ease: "linear",
-                delay: i * 0.03,
+                delay: i * 0.07,
               }}
             />
           ))}
@@ -169,7 +164,7 @@ export function CinematicDrive() {
           style={{ x: carX, y: carY, scale: carScale, rotate: carTilt, filter }}
           className="relative z-10 w-[85vw] max-w-[1500px]"
         >
-          <motion.div style={{ x: shakeX, y: shakeY }} className="relative">
+          <div className="relative">
             {/* Trailing light streak under the car */}
             <motion.div
               style={{ opacity: streakOpacity, width: streakWidth }}
@@ -221,7 +216,7 @@ export function CinematicDrive() {
                 transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", repeatDelay: 1.5 }}
               />
             </motion.div>
-          </motion.div>
+          </div>
 
           {/* Ground shadow */}
           <motion.div
