@@ -92,7 +92,7 @@ export function WheelScene() {
           <RimDisc position={[0, 0, 0]} />
         </group>
       </Float>
-      <Environment preset="night" />
+      <Environment preset="night" background={false} />
     </Canvas>
   );
 }
@@ -104,7 +104,7 @@ export function EmblemScene() {
       <pointLight position={[5, 5, 5]} intensity={40} color="#ffd28a" />
       <pointLight position={[-5, -2, -3]} intensity={20} color="#a87a2a" />
       <Emblem />
-      <Environment preset="warehouse" />
+      <Environment preset="warehouse" background={false} />
     </Canvas>
   );
 }
