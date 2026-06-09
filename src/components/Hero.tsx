@@ -4,176 +4,166 @@ import heroCar from "@/assets/hero-car.webp";
 
 const STATS = [
   { k: "4,200+", v: "Cars delivered" },
-  { k: "11 yrs", v: "Of craft" },
+  { k: "11 yrs", v: "In business" },
   { k: "32 pt", v: "Inspection" },
   { k: "100%", v: "Verified history" },
 ];
+
+// Ease used for all entrance animations
+const EASE = [0.22, 1, 0.36, 1] as const;
 
 export function Hero() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
 
-  const carY = useTransform(scrollYProgress, [0, 1], [0, -100]);
-  const fade = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+  const carY    = useTransform(scrollYProgress, [0, 1], [0, -80]);
+  const textY   = useTransform(scrollYProgress, [0, 1], [0, 60]);
+  const opacity = useTransform(scrollYProgress, [0, 0.55], [1, 0]);
 
-  // Gentle mouse parallax — applied only to the car
-  const mx = useSpring(0, { stiffness: 40, damping: 22 });
-  const my = useSpring(0, { stiffness: 40, damping: 22 });
+  const mx = useSpring(0, { stiffness: 38, damping: 20 });
+  const my = useSpring(0, { stiffness: 38, damping: 20 });
 
   useEffect(() => {
-    const onMove = (e: MouseEvent) => {
-      mx.set((e.clientX / window.innerWidth - 0.5) * 28);
-      my.set((e.clientY / window.innerHeight - 0.5) * 16);
+    const move = (e: MouseEvent) => {
+      mx.set((e.clientX / window.innerWidth  - 0.5) * 22);
+      my.set((e.clientY / window.innerHeight - 0.5) * 12);
     };
-    window.addEventListener("mousemove", onMove);
-    return () => window.removeEventListener("mousemove", onMove);
+    window.addEventListener("mousemove", move);
+    return () => window.removeEventListener("mousemove", move);
   }, [mx, my]);
 
   return (
-    <section
-      ref={ref}
-      className="relative min-h-screen overflow-hidden hero-gradient grain"
-    >
-      {/* Fine grid */}
+    <section ref={ref} className="relative h-screen min-h-[680px] overflow-hidden hero-gradient grain">
+
+      {/* Subtle background grid */}
       <div
-        className="pointer-events-none absolute inset-0 opacity-[0.055]"
+        className="pointer-events-none absolute inset-0 opacity-[0.045]"
         style={{
           backgroundImage:
             "linear-gradient(var(--color-foreground) 1px, transparent 1px), linear-gradient(90deg, var(--color-foreground) 1px, transparent 1px)",
-          backgroundSize: "72px 72px",
+          backgroundSize: "80px 80px",
         }}
       />
 
-      {/* Thin vertical accent rule — left edge */}
+      {/* ── Car ─────────────────────────────────────────────── */}
+      {/* Bottom-right, natural aspect ratio, blended into bg   */}
       <motion.div
-        initial={{ scaleY: 0 }}
-        animate={{ scaleY: 1 }}
-        transition={{ duration: 1.6, ease: [0.22, 1, 0.36, 1], delay: 0.6 }}
-        className="absolute left-6 top-32 bottom-32 w-px origin-top bg-linear-to-b from-transparent via-gold/40 to-transparent md:left-16"
-      />
+        initial={{ x: "18%", opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 1.9, ease: EASE, delay: 0.3 }}
+        style={{ y: carY, x: mx }}
+        className="pointer-events-none absolute bottom-0 right-[-3%] w-[64%] md:right-0 md:w-[58%] lg:w-[62%]"
+      >
+        {/* Left-side blend so car never competes with text */}
+        <div className="absolute inset-y-0 left-0 z-10 w-[52%] bg-linear-to-r from-background via-background/75 to-transparent" />
+        {/* Bottom fade into section floor */}
+        <div className="absolute inset-x-0 bottom-0 z-10 h-[30%] bg-linear-to-t from-background to-transparent" />
+        {/* Ambient gold glow beneath tyres */}
+        <div className="absolute bottom-[6%] left-[35%] right-[8%] h-[18%] rounded-full bg-gold/14 blur-[72px]" />
 
-      {/* ── Car — right column ── */}
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-[58%] overflow-hidden">
-        {/* Blend car into text area on the left */}
-        <div className="absolute inset-y-0 left-0 z-10 w-2/5 bg-linear-to-r from-background via-background/85 to-transparent" />
-        {/* Ground fade */}
-        <div className="absolute inset-x-0 bottom-0 z-10 h-1/3 bg-linear-to-t from-background to-transparent" />
-        {/* Top fade */}
-        <div className="absolute inset-x-0 top-0 z-10 h-32 bg-linear-to-b from-background to-transparent" />
+        <motion.img
+          src={heroCar}
+          alt="Luxury sports coupe"
+          style={{ y: my, opacity }}
+          className="relative w-full drop-shadow-[0_20px_64px_rgba(212,168,76,0.18)]"
+          width={1920}
+          height={1080}
+          fetchPriority="high"
+          decoding="async"
+        />
+      </motion.div>
 
-        {/* Gold ground glow */}
-        <div className="absolute bottom-[12%] left-[8%] right-[4%] h-[28%] rounded-full bg-gold/12 blur-[90px]" />
-
+      {/* ── Page content ──────────────────────────────────────── */}
+      <motion.div
+        style={{ y: textY }}
+        className="relative z-10 mx-auto flex h-full max-w-400 flex-col px-6 md:px-16"
+      >
+        {/* Top bar */}
         <motion.div
-          initial={{ x: "22%", opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ duration: 2.0, ease: [0.16, 1, 0.3, 1], delay: 0.35 }}
-          style={{ y: carY, x: mx }}
-          className="absolute inset-0 flex items-end justify-center pb-[5%]"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.1 }}
+          className="flex items-center justify-between pt-28 md:pt-32"
         >
-          <motion.img
-            src={heroCar}
-            alt="Luxury sports coupe"
-            style={{ y: my, opacity: fade }}
-            className="h-full w-full object-contain object-bottom drop-shadow-[0_32px_80px_rgba(212,168,76,0.22)]"
-            width={1920}
-            height={1080}
-            fetchPriority="high"
-            decoding="async"
-          />
-        </motion.div>
-      </div>
-
-      {/* ── Text column ── */}
-      <div className="relative z-10 mx-auto flex min-h-screen max-w-400 flex-col px-6 pt-40 pb-20 md:px-16">
-        <div className="flex flex-1 flex-col justify-center">
-
-          {/* Eyebrow */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-            className="flex items-center gap-4 text-[10px] tracking-[0.5em] text-gold/70"
-          >
-            <span className="h-px w-10 bg-gold/50" />
+          <div className="flex items-center gap-4 text-[10px] tracking-[0.5em] text-gold/60">
+            <span className="h-px w-8 bg-gold/40" />
             CONCIERGE AUTO ACQUISITION
-          </motion.div>
+          </div>
+          <span className="hidden font-mono text-[9px] tracking-[0.4em] text-foreground/20 md:block">
+            EST. 2014 · WARSAW
+          </span>
+        </motion.div>
 
-          {/* Animated reveal rule */}
-          <motion.div
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 1.1, ease: [0.22, 1, 0.36, 1], delay: 0.25 }}
-            className="mt-7 h-px w-28 origin-left bg-gold/30"
-          />
+        {/* ── Headline block (vertically centred in remaining space) */}
+        <div className="flex flex-1 flex-col justify-center">
+          <h1 className="font-display font-light">
 
-          {/* Headline — three lines with stagger */}
-          <div className="mt-8 overflow-hidden">
-            <motion.h1
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.1, delay: 0.3 }}
-              className="font-display"
-            >
+            {/* "Buy your" — masked slide-up */}
+            <div className="overflow-hidden">
               <motion.span
-                initial={{ y: "100%" }}
+                initial={{ y: "104%" }}
                 animate={{ y: 0 }}
-                transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
-                className="block text-[11vw] leading-[0.95] tracking-tight md:text-[8.5rem] lg:text-[9.5rem]"
+                transition={{ duration: 0.9, ease: EASE, delay: 0.28 }}
+                className="block text-5xl leading-[0.93] tracking-wide md:text-6xl lg:text-7xl xl:text-8xl"
               >
                 Buy your
               </motion.span>
+            </div>
+
+            {/* "dream car." — italic gold, masked */}
+            <div className="overflow-hidden">
               <motion.span
-                initial={{ y: "100%" }}
+                initial={{ y: "104%" }}
                 animate={{ y: 0 }}
-                transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1], delay: 0.44 }}
-                className="block text-[11vw] leading-[0.95] italic gold-shine tracking-tight md:text-[8.5rem] lg:text-[9.5rem]"
+                transition={{ duration: 0.9, ease: EASE, delay: 0.42 }}
+                className="block text-5xl italic leading-[0.93] tracking-wide gold-shine md:text-6xl lg:text-7xl xl:text-8xl"
               >
                 dream car.
               </motion.span>
+            </div>
+
+            {/* "Online." — ghost */}
+            <div className="overflow-hidden">
               <motion.span
-                initial={{ y: "100%" }}
+                initial={{ y: "104%" }}
                 animate={{ y: 0 }}
-                transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1], delay: 0.58 }}
-                className="block text-[11vw] leading-[0.95] tracking-tight text-foreground/25 md:text-[8.5rem] lg:text-[9.5rem]"
+                transition={{ duration: 0.9, ease: EASE, delay: 0.56 }}
+                className="block text-5xl leading-[0.93] tracking-wide text-foreground/20 md:text-6xl lg:text-7xl xl:text-8xl"
               >
                 Online.
               </motion.span>
-            </motion.h1>
-          </div>
+            </div>
+          </h1>
 
-          {/* Body + CTAs */}
+          {/* Body copy + CTAs */}
           <motion.div
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 18 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1], delay: 0.82 }}
-            className="mt-12 max-w-[440px]"
+            transition={{ duration: 0.85, ease: EASE, delay: 0.78 }}
+            className="mt-8 max-w-sm md:mt-10"
           >
-            <p className="text-[0.95rem] leading-[1.9] text-muted-foreground">
-              We search Europe, verify every detail, and deliver to your doorstep.
-              No haggling. No surprises. Just the car you've been dreaming of.
+            <p className="text-[0.92rem] leading-[1.9] text-muted-foreground">
+              We source the finest European luxury cars, verify every detail,
+              and deliver straight to your door. No compromise.
             </p>
 
-            <div className="mt-10 flex flex-wrap items-center gap-4">
+            <div className="mt-8 flex flex-wrap items-center gap-3">
               <a
                 href="#collection"
-                className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-gold px-8 py-3.5 text-sm font-medium tracking-wide text-primary-foreground transition hover:scale-[1.02]"
+                className="group relative inline-flex items-center gap-2.5 overflow-hidden rounded-full bg-gold px-7 py-3 text-sm font-medium tracking-wide text-primary-foreground transition-transform hover:scale-[1.02]"
               >
-                <span className="relative z-10">View the collection</span>
+                <span className="relative z-10">View collection</span>
                 <svg
-                  className="relative z-10 h-3.5 w-3.5 transition group-hover:translate-x-1"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
+                  className="relative z-10 h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5"
+                  viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"
                 >
                   <path d="M5 12h14M13 5l7 7-7 7" />
                 </svg>
-                <span className="absolute inset-0 bg-linear-to-r from-gold via-amber-200 to-gold opacity-0 transition group-hover:opacity-100" />
+                <span className="absolute inset-0 bg-linear-to-r from-gold via-amber-200 to-gold opacity-0 transition-opacity group-hover:opacity-100" />
               </a>
               <a
                 href="#contact"
-                className="inline-flex items-center gap-2 rounded-full border border-foreground/20 px-8 py-3.5 text-sm tracking-wide transition hover:border-gold/60 hover:text-gold"
+                className="inline-flex items-center rounded-full border border-foreground/18 px-7 py-3 text-sm tracking-wide transition hover:border-gold/50 hover:text-gold"
               >
                 Request a quote
               </a>
@@ -181,36 +171,39 @@ export function Hero() {
           </motion.div>
         </div>
 
-        {/* Stats strip */}
+        {/* ── Stats strip ─────────────────────────────────────── */}
         <motion.div
-          initial={{ opacity: 0, y: 32 }}
+          initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 1.05 }}
-          className="mt-16 grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border/60 bg-border/30 md:grid-cols-4"
+          transition={{ duration: 0.85, ease: EASE, delay: 1.0 }}
+          className="mb-6 grid grid-cols-4 border-t border-border/40 md:mb-10"
         >
-          {STATS.map((s) => (
-            <div key={s.v} className="bg-background/70 px-7 py-7 backdrop-blur md:px-9">
-              <div className="font-display text-3xl text-gold md:text-4xl">{s.k}</div>
-              <div className="mt-2 text-[10px] tracking-[0.18em] text-muted-foreground">
+          {STATS.map((s, i) => (
+            <div
+              key={s.v}
+              className={`py-5 ${i > 0 ? "border-l border-border/30 pl-6" : ""} pr-4`}
+            >
+              <div className="font-display text-2xl text-gold md:text-3xl">{s.k}</div>
+              <div className="mt-1.5 text-[9px] tracking-[0.22em] text-muted-foreground/70">
                 {s.v.toUpperCase()}
               </div>
             </div>
           ))}
         </motion.div>
-      </div>
+      </motion.div>
 
-      {/* Scroll cue */}
+      {/* Scroll indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.6, duration: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        transition={{ delay: 1.5, duration: 0.8 }}
+        className="absolute bottom-6 right-8 hidden flex-col items-end gap-2 md:flex"
       >
-        <div className="text-[9px] tracking-[0.5em] text-muted-foreground/60">SCROLL</div>
+        <div className="text-[9px] tracking-[0.45em] text-muted-foreground/40">SCROLL</div>
         <motion.div
-          animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
-          className="h-4 w-px bg-linear-to-b from-gold/50 to-transparent"
+          animate={{ scaleY: [1, 0.3, 1] }}
+          transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+          className="h-8 w-px origin-top bg-linear-to-b from-gold/40 to-transparent"
         />
       </motion.div>
     </section>
