@@ -82,7 +82,7 @@ function Emblem() {
 
 export function WheelScene() {
   return (
-    <Canvas camera={{ position: [0, 0, 5], fov: 40 }} dpr={[1, 1.5]}>
+    <Canvas camera={{ position: [0, 0, 5], fov: 40 }} dpr={[1, 1.5]} gl={{ alpha: true }} style={{ background: "transparent" }}>
       <ambientLight intensity={0.4} />
       <spotLight position={[5, 5, 5]} intensity={32} angle={0.4} penumbra={1} color="#ffd28a" />
       <spotLight position={[-5, -3, 3]} intensity={20} angle={0.5} penumbra={1} color="#fff" />
@@ -99,7 +99,7 @@ export function WheelScene() {
 
 export function EmblemScene() {
   return (
-    <Canvas camera={{ position: [0, 0, 6], fov: 45 }} dpr={[1, 1.5]}>
+    <Canvas camera={{ position: [0, 0, 6], fov: 45 }} dpr={[1, 1.5]} gl={{ alpha: true }} style={{ background: "transparent" }}>
       <ambientLight intensity={0.3} />
       <pointLight position={[5, 5, 5]} intensity={40} color="#ffd28a" />
       <pointLight position={[-5, -2, -3]} intensity={20} color="#a87a2a" />

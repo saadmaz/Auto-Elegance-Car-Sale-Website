@@ -23,9 +23,9 @@ export function CinematicDrive() {
   // 0.18 → 0.42 push to center, scale up (arrival)
   // 0.42 → 0.62 hold near center, micro-tilt (the beauty shot)
   // 0.62 → 1.0  launch off to the right, motion-blur (departure)
-  const carX = useTransform(p, [0, 0.2, 0.45, 0.62, 1], ["-90%", "-25%", "0%", "8%", "120%"]);
+  const carX = useTransform(p, [0, 0.2, 0.45, 0.62, 1], ["90%", "25%", "0%", "-8%", "-120%"]);
   const carScale = useTransform(p, [0, 0.2, 0.45, 0.62, 1], [0.55, 0.95, 1.18, 1.22, 0.85]);
-  const carTilt = useTransform(p, [0, 0.45, 0.62, 1], [-3, 0, 1, 4]);
+  const carTilt = useTransform(p, [0, 0.45, 0.62, 1], [3, 0, -1, -4]);
   const carY = useTransform(p, [0, 0.45, 0.62, 1], [40, 0, 0, -10]);
   const blur = useTransform(p, [0, 0.18, 0.45, 0.62, 0.85, 1], [10, 2, 0, 0, 5, 14]);
   const filter = useMotionTemplate`blur(${blur}px) saturate(1.05)`;
@@ -34,8 +34,8 @@ export function CinematicDrive() {
   const v = useVelocity(p);
   const linesOpacity = useTransform(p, [0, 0.15, 0.85, 1], [0, 1, 1, 0]);
 
-  // Road parallax — way more aggressive
-  const roadX = useTransform(p, [0, 1], ["20%", "-60%"]);
+  // Road parallax — reversed to match right-to-left car travel
+  const roadX = useTransform(p, [0, 1], ["-20%", "60%"]);
   const roadScale = useTransform(p, [0, 0.5, 1], [1.15, 1.35, 1.55]);
   const roadBlur = useTransform(p, [0, 0.45, 0.62, 1], [4, 0, 0, 8]);
   const roadFilter = useMotionTemplate`blur(${roadBlur}px)`;
@@ -164,8 +164,9 @@ export function CinematicDrive() {
           style={{ x: carX, y: carY, scale: carScale, rotate: carTilt, filter }}
           className="relative z-10 w-[85vw] max-w-[1500px]"
         >
-          <div className="relative">
-            {/* Trailing light streak under the car */}
+          {/* scaleX(-1) flips the right-facing car image so it travels right→left */}
+          <div className="relative" style={{ transform: "scaleX(-1)" }}>
+            {/* Trailing light streak — visually on the right (behind a left-traveling car) */}
             <motion.div
               style={{ opacity: streakOpacity, width: streakWidth }}
               className="pointer-events-none absolute right-full top-[70%] h-2 -translate-y-1/2 rounded-full bg-gradient-to-l from-gold via-gold/40 to-transparent blur-md"

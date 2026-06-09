@@ -5,9 +5,9 @@ import car2 from "@/assets/car-2.webp";
 import car3 from "@/assets/car-3.webp";
 
 const FLEET = [
-  { img: car1, name: "Porsche 911 Carrera", spec: "Silver Pearl · 2023", ref: "REF · 087" },
-  { img: car2, name: "BMW M4 Competition", spec: "Tanzanite Blue · 2024", ref: "REF · 091" },
-  { img: car3, name: "Audi RS7 Sportback", spec: "Daytona Grey · 2023", ref: "REF · 094" },
+  { img: car1, name: "Porsche 911 Carrera", spec: "Silver Pearl · 2023", ref: "REF · 087", year: "2023", km: "8,200 km", price: "€148,000" },
+  { img: car2, name: "BMW M4 Competition", spec: "Tanzanite Blue · 2024", ref: "REF · 091", year: "2024", km: "3,400 km", price: "€132,500" },
+  { img: car3, name: "Audi RS7 Sportback", spec: "Daytona Grey · 2023", ref: "REF · 094", year: "2023", km: "12,100 km", price: "€189,000" },
 ];
 
 /**
@@ -23,7 +23,7 @@ export function Runway() {
   const trackX = useTransform(p, [0, 1], ["10%", "-220%"]);
 
   return (
-    <section ref={ref} className="relative h-[320vh] bg-background">
+    <section ref={ref} className="relative h-[240vh] bg-background">
       <div className="sticky top-0 flex h-screen flex-col overflow-hidden">
         {/* Studio floor — diagonal sweep light */}
         <div className="absolute inset-0">
@@ -98,11 +98,10 @@ function RunwayCar({
   index,
   progress,
 }: {
-  car: { img: string; name: string; spec: string; ref: string };
+  car: { img: string; name: string; spec: string; ref: string; year: string; km: string; price: string };
   index: number;
   progress: ReturnType<typeof useSpring>;
 }) {
-  // Each car has a "spotlight window" within total progress where it's center stage
   const start = index / FLEET.length;
   const peak = start + 1 / (FLEET.length * 2);
   const end = (index + 1) / FLEET.length;
@@ -112,36 +111,43 @@ function RunwayCar({
     [Math.max(0, start - 0.05), peak, Math.min(1, end + 0.05)],
     [0.3, 1, 0.3],
   );
-  const cardScale = useTransform(progress, [start, peak, end], [0.88, 1.05, 0.88]);
-  const labelY = useTransform(progress, [start, peak, end], [40, 0, 40]);
+  const cardScale = useTransform(progress, [start, peak, end], [0.88, 1.02, 0.88]);
+  const labelY = useTransform(progress, [start, peak, end], [28, 0, 28]);
 
   return (
-    <div className="flex w-screen flex-shrink-0 items-center justify-center px-12">
+    <div className="flex w-screen flex-shrink-0 flex-col items-center justify-center gap-5 px-12 pb-4">
       <motion.div
         style={{ opacity: cardOpacity, scale: cardScale }}
-        className="relative w-full max-w-[1100px]"
+        className="relative w-full max-w-240"
       >
         <div className="absolute -inset-16 rounded-full bg-gradient-radial from-gold/15 via-transparent to-transparent blur-3xl" />
         <img
           src={car.img}
           alt={car.name}
           className="relative w-full drop-shadow-[0_60px_60px_rgba(0,0,0,0.6)]"
+          loading="lazy"
+          decoding="async"
         />
-
-        {/* Floor shadow */}
         <div className="absolute -bottom-2 left-[12%] right-[12%] h-8 rounded-full bg-black/70 blur-2xl" />
+      </motion.div>
 
-        {/* Floating label */}
-        <motion.div
-          style={{ y: labelY, opacity: cardOpacity }}
-          className="absolute -bottom-24 left-1/2 -translate-x-1/2 whitespace-nowrap text-center"
-        >
-          <div className="font-mono text-[10px] tracking-[0.5em] text-gold">{car.ref}</div>
-          <div className="mt-2 font-display text-3xl md:text-5xl">{car.name}</div>
-          <div className="mt-1 font-mono text-[10px] tracking-[0.4em] text-muted-foreground">
-            {car.spec.toUpperCase()}
-          </div>
-        </motion.div>
+      {/* Label in normal flow — never clipped by overflow-hidden */}
+      <motion.div
+        style={{ y: labelY, opacity: cardOpacity }}
+        className="whitespace-nowrap text-center"
+      >
+        <div className="font-mono text-[10px] tracking-[0.5em] text-gold">{car.ref}</div>
+        <div className="mt-2 font-display text-3xl md:text-5xl">{car.name}</div>
+        <div className="mt-1 font-mono text-[10px] tracking-[0.4em] text-muted-foreground">
+          {car.spec.toUpperCase()}
+        </div>
+        <div className="mt-4 flex items-center justify-center gap-6 font-mono text-[10px] tracking-[0.3em]">
+          <span className="text-gold/70">{car.year}</span>
+          <span className="text-border">·</span>
+          <span className="text-muted-foreground">{car.km}</span>
+          <span className="text-border">·</span>
+          <span className="text-gold">{car.price}</span>
+        </div>
       </motion.div>
     </div>
   );
