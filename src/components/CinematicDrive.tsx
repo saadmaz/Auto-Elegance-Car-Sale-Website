@@ -25,7 +25,7 @@ export function CinematicDrive() {
   // 0.62 → 1.0  launch off to the right, motion-blur (departure)
   const carX = useTransform(p, [0, 0.2, 0.45, 0.62, 1], ["-90%", "-25%", "0%", "8%", "120%"]);
   const carScale = useTransform(p, [0, 0.2, 0.45, 0.62, 1], [0.55, 0.95, 1.18, 1.22, 0.85]);
-  const carTilt = useTransform(p, [0, 0.45, 0.62, 1], [-3, 0, 1, 4]);
+  const carTilt = useTransform(p, [0, 0.45, 0.62, 1], [2, 0, -1, -3]);
   const carY = useTransform(p, [0, 0.45, 0.62, 1], [40, 0, 0, -10]);
   const blur = useTransform(p, [0, 0.18, 0.45, 0.62, 0.85, 1], [10, 2, 0, 0, 5, 14]);
   const filter = useMotionTemplate`blur(${blur}px) saturate(1.05)`;
@@ -104,10 +104,10 @@ export function CinematicDrive() {
           />
         </motion.div>
 
-        {/* Volumetric headlight cone */}
+        {/* Volumetric headlight cone — origin left-center, cone fans right (forward) */}
         <motion.div
           style={{ opacity: lightOpacity }}
-          className="pointer-events-none absolute right-[55%] top-[40%] h-[80vh] w-[120vw] origin-right -translate-y-1/2 scale-x-[-1]"
+          className="pointer-events-none absolute left-[50%] top-[40%] h-[80vh] w-[120vw] origin-left -translate-y-1/2"
         >
           <div className="h-full w-full bg-[conic-gradient(from_85deg_at_0%_50%,transparent_0deg,oklch(0.95_0.14_88/0.18)_8deg,transparent_22deg)] blur-2xl" />
         </motion.div>
@@ -165,10 +165,10 @@ export function CinematicDrive() {
           className="relative z-10 w-[85vw] max-w-[1500px]"
         >
           <div className="relative">
-            {/* Trailing light streak — on the left (behind a left-to-right traveling car) */}
+            {/* Trailing light streak — right-full puts it to the LEFT (behind) of the car */}
             <motion.div
               style={{ opacity: streakOpacity, width: streakWidth }}
-              className="pointer-events-none absolute left-full top-[70%] h-2 -translate-y-1/2 rounded-full bg-linear-to-r from-gold via-gold/40 to-transparent blur-md"
+              className="pointer-events-none absolute right-full top-[70%] h-2 -translate-y-1/2 rounded-full bg-linear-to-l from-gold via-gold/40 to-transparent blur-md"
             />
 
             <img src={carSide} alt="Luxury sports coupe driving" className="w-full" />
