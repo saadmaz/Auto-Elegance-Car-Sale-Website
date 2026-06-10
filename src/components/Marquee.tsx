@@ -1,38 +1,27 @@
 const BRANDS = [
-  "Ceramic Coating",
-  "Paint Correction",
-  "Interior Detailing",
-  "Headlight Restoration",
-  "Hydrophobic Protection",
-  "Clay Bar Treatment",
-  "Machine Polishing",
-  "Nano Coating",
-  "Paint Protection Film",
-  "Deep Foam Wash",
+  "Porsche",
+  "Mercedes-AMG",
+  "BMW M",
+  "Audi RS",
+  "Lamborghini",
+  "Ferrari",
+  "Aston Martin",
+  "Bentley",
+  "McLaren",
+  "Maserati",
 ];
 
 export function Marquee() {
   return (
-    <div className="content-auto relative overflow-hidden border-y border-border/50 bg-card py-14 md:py-18">
-      {/* Top accent rule */}
-      <div className="rule-gold pointer-events-none absolute inset-x-0 top-0" />
-      <div className="rule-gold pointer-events-none absolute inset-x-0 bottom-0" />
-
-      <div className="marquee flex w-max gap-0">
-        {[...BRANDS, ...BRANDS].map((brand, i) => (
+    <div className="content-auto relative overflow-hidden border-y border-border bg-card py-12 md:py-16">
+      <div className="marquee flex w-max gap-20">
+        {[...BRANDS, ...BRANDS].map((w, i) => (
           <div
             key={i}
-            className="flex items-center gap-14 px-14"
+            className="flex items-center gap-20 font-display text-5xl text-foreground/30 md:text-7xl"
           >
-            <span className="font-display text-[2.6rem] font-light tracking-tight text-foreground/22 md:text-[3.8rem]">
-              {brand}
-            </span>
-            <span
-              className="text-[0.55rem] tracking-[0.5em] text-gold/55"
-              style={{ fontFamily: "var(--font-mono)" }}
-            >
-              ✦
-            </span>
+            {w}
+            <span className="text-gold">✦</span>
           </div>
         ))}
       </div>

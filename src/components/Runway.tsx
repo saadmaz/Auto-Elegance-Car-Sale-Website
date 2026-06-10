@@ -5,69 +5,64 @@ import car2 from "@/assets/car-2.webp";
 import car3 from "@/assets/car-3.webp";
 
 const FLEET = [
-  { img: car1, name: "Porsche 911 Carrera",  spec: "Silver Pearl · 2023", ref: "REF · 087", year: "2023", km: "8,200 km",  price: "€148,000" },
-  { img: car2, name: "BMW M4 Competition",   spec: "Tanzanite Blue · 2024", ref: "REF · 091", year: "2024", km: "3,400 km",  price: "€132,500" },
-  { img: car3, name: "Audi RS7 Sportback",   spec: "Daytona Grey · 2023",  ref: "REF · 094", year: "2023", km: "12,100 km", price: "€189,000" },
+  { img: car1, name: "Porsche 911 Carrera", spec: "Silver Pearl · 2023", ref: "REF · 087", year: "2023", km: "8,200 km", price: "€148,000" },
+  { img: car2, name: "BMW M4 Competition", spec: "Tanzanite Blue · 2024", ref: "REF · 091", year: "2024", km: "3,400 km", price: "€132,500" },
+  { img: car3, name: "Audi RS7 Sportback", spec: "Daytona Grey · 2023", ref: "REF · 094", year: "2023", km: "12,100 km", price: "€189,000" },
 ];
 
+/**
+ * Runway — scroll-jacked horizontal "show floor" where cars roll in from the
+ * right, pause center-stage, and exit left. Plays like a luxury auto reveal reel.
+ */
 export function Runway() {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const p = useSpring(scrollYProgress, { stiffness: 80, damping: 26 });
 
+  // Horizontal track: 3 cars sequenced across the viewport
   const trackX = useTransform(p, [0, 1], ["10%", "-220%"]);
 
   return (
     <section ref={ref} className="relative h-[240vh] bg-background">
       <div className="sticky top-0 flex h-screen flex-col overflow-hidden">
-
-        {/* Studio environment */}
+        {/* Studio floor — diagonal sweep light */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_80%,oklch(0.13_0.04_78/0.45),transparent_52%)]" />
-          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-[linear-gradient(to_top,oklch(0.05_0.003_270),transparent)]" />
-
-          {/* Perspective grid floor */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_85%,oklch(0.16_0.04_75/0.5),transparent_55%)]" />
+          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-[linear-gradient(to_top,oklch(0.1_0.01_60),transparent)]" />
+          {/* Studio grid floor */}
           <div
-            className="absolute inset-x-0 bottom-0 h-2/3 opacity-[0.18]"
+            className="absolute inset-x-0 bottom-0 h-2/3 opacity-30"
             style={{
               backgroundImage:
-                "linear-gradient(oklch(0.78 0.09 82 / 0.2) 1px, transparent 1px), linear-gradient(90deg, oklch(0.78 0.09 82 / 0.2) 1px, transparent 1px)",
+                "linear-gradient(oklch(0.82 0.13 82 / 0.15) 1px, transparent 1px), linear-gradient(90deg, oklch(0.82 0.13 82 / 0.15) 1px, transparent 1px)",
               backgroundSize: "60px 60px",
               transform: "perspective(900px) rotateX(70deg)",
               transformOrigin: "bottom",
               maskImage: "linear-gradient(to top, black, transparent 80%)",
             }}
           />
-
-          {/* Ceiling light bar */}
-          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
+          {/* Top spotlight bar */}
+          <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/40 to-transparent" />
         </div>
 
-        {/* Section header */}
-        <div className="relative z-20 flex items-end justify-between px-8 pt-12 md:px-16">
+        {/* Header */}
+        <div className="relative z-20 flex items-end justify-between px-8 pt-10 md:px-16">
           <div>
-            <p
-              className="text-[9px] tracking-[0.55em] text-gold/60"
-              style={{ fontFamily: "var(--font-mono)" }}
-            >
+            <div className="font-mono text-[10px] tracking-[0.5em] text-gold/70">
               — ROLLING SHOWROOM
-            </p>
-            <h2 className="mt-4 font-display text-[2.4rem] font-light leading-[0.95] tracking-tight md:text-[4rem]">
-              The fleet,{" "}
-              <span className="italic gold-shine">in motion.</span>
+            </div>
+            <h2 className="mt-4 font-display text-5xl leading-[0.95] tracking-tight md:text-7xl">
+              The fleet, <span className="italic gold-shine">in motion</span>.
             </h2>
           </div>
-          <div
-            className="hidden text-right text-[8.5px] tracking-[0.4em] text-muted-foreground/40 md:block"
-            style={{ fontFamily: "var(--font-mono)" }}
-          >
+          <div className="hidden text-right font-mono text-[10px] tracking-[0.4em] text-muted-foreground md:block">
             SCROLL · DRIVE
             <br />
             03 / VEHICLES
           </div>
         </div>
 
-        {/* Car track */}
+        {/* Horizontal car track */}
         <div className="relative flex-1">
           <motion.div
             style={{ x: trackX }}
@@ -78,18 +73,16 @@ export function Runway() {
             ))}
           </motion.div>
 
-          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-background to-transparent" />
+          {/* Floor reflection */}
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background to-transparent" />
         </div>
 
-        {/* Scrub progress bar */}
-        <div className="relative z-20 mx-8 mb-10 md:mx-16">
-          <div className="h-px w-full bg-border/40">
+        {/* Scrub bar */}
+        <div className="relative z-20 mx-8 mb-8 md:mx-16">
+          <div className="h-px w-full bg-border">
             <motion.div className="h-px bg-gold" style={{ scaleX: p, transformOrigin: "left" }} />
           </div>
-          <div
-            className="mt-3 flex justify-between text-[8.5px] tracking-[0.35em] text-muted-foreground/40"
-            style={{ fontFamily: "var(--font-mono)" }}
-          >
+          <div className="mt-3 flex justify-between font-mono text-[10px] tracking-[0.3em] text-muted-foreground">
             <span>01 · APPROACH</span>
             <span>02 · CENTER STAGE</span>
             <span>03 · EXIT</span>
@@ -110,61 +103,49 @@ function RunwayCar({
   progress: ReturnType<typeof useSpring>;
 }) {
   const start = index / FLEET.length;
-  const peak  = start + 1 / (FLEET.length * 2);
-  const end   = (index + 1) / FLEET.length;
+  const peak = start + 1 / (FLEET.length * 2);
+  const end = (index + 1) / FLEET.length;
 
   const cardOpacity = useTransform(
     progress,
     [Math.max(0, start - 0.05), peak, Math.min(1, end + 0.05)],
-    [0.28, 1, 0.28],
+    [0.3, 1, 0.3],
   );
   const cardScale = useTransform(progress, [start, peak, end], [0.88, 1.02, 0.88]);
-  const labelY    = useTransform(progress, [start, peak, end], [24, 0, 24]);
+  const labelY = useTransform(progress, [start, peak, end], [28, 0, 28]);
 
   return (
-    <div className="flex w-screen flex-shrink-0 flex-col items-center justify-center gap-6 px-12 pb-4">
+    <div className="flex w-screen flex-shrink-0 flex-col items-center justify-center gap-5 px-12 pb-4">
       <motion.div
         style={{ opacity: cardOpacity, scale: cardScale }}
-        className="relative w-full max-w-[960px]"
+        className="relative w-full max-w-240"
       >
-        <div className="absolute -inset-16 rounded-full bg-gold/8 blur-3xl" />
+        <div className="absolute -inset-16 rounded-full bg-gradient-radial from-gold/15 via-transparent to-transparent blur-3xl" />
         <img
           src={car.img}
           alt={car.name}
-          className="relative w-full drop-shadow-[0_50px_70px_rgba(0,0,0,0.7)]"
+          className="relative w-full drop-shadow-[0_60px_60px_rgba(0,0,0,0.6)]"
           loading="lazy"
           decoding="async"
         />
-        <div className="absolute -bottom-2 left-[12%] right-[12%] h-6 rounded-full bg-black/60 blur-2xl" />
+        <div className="absolute -bottom-2 left-[12%] right-[12%] h-8 rounded-full bg-black/70 blur-2xl" />
       </motion.div>
 
+      {/* Label in normal flow — never clipped by overflow-hidden */}
       <motion.div
         style={{ y: labelY, opacity: cardOpacity }}
         className="whitespace-nowrap text-center"
       >
-        <div
-          className="text-[8.5px] tracking-[0.55em] text-gold/70"
-          style={{ fontFamily: "var(--font-mono)" }}
-        >
-          {car.ref}
-        </div>
-        <div className="mt-2.5 font-display text-[2rem] font-light md:text-[3.2rem]">
-          {car.name}
-        </div>
-        <div
-          className="mt-1.5 text-[8.5px] tracking-[0.45em] text-muted-foreground/45"
-          style={{ fontFamily: "var(--font-mono)" }}
-        >
+        <div className="font-mono text-[10px] tracking-[0.5em] text-gold">{car.ref}</div>
+        <div className="mt-2 font-display text-3xl md:text-5xl">{car.name}</div>
+        <div className="mt-1 font-mono text-[10px] tracking-[0.4em] text-muted-foreground">
           {car.spec.toUpperCase()}
         </div>
-        <div
-          className="mt-4 flex items-center justify-center gap-5 text-[8.5px] tracking-[0.3em]"
-          style={{ fontFamily: "var(--font-mono)" }}
-        >
-          <span className="text-gold/60">{car.year}</span>
-          <span className="text-border/60">·</span>
-          <span className="text-muted-foreground/50">{car.km}</span>
-          <span className="text-border/60">·</span>
+        <div className="mt-4 flex items-center justify-center gap-6 font-mono text-[10px] tracking-[0.3em]">
+          <span className="text-gold/70">{car.year}</span>
+          <span className="text-border">·</span>
+          <span className="text-muted-foreground">{car.km}</span>
+          <span className="text-border">·</span>
           <span className="text-gold">{car.price}</span>
         </div>
       </motion.div>

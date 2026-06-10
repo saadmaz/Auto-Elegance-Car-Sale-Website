@@ -4,152 +4,116 @@ import car1 from "@/assets/car-1.webp";
 import car2 from "@/assets/car-2.webp";
 import car3 from "@/assets/car-3.webp";
 
-const SERVICES = [
+const COLLECTION = [
   {
-    name: "Signature Detail",
-    tagline: "The essential refresh",
-    spec1: { k: "4 hrs",   v: "Duration" },
-    spec2: { k: "Single",  v: "Stage Polish" },
-    spec3: { k: "£299+",   v: "From" },
+    name: "Porsche 911 Carrera",
+    year: "2023",
+    price: "€148,000",
+    km: "8,200 km",
     img: car1,
-    ref: "SVC · 01",
-    badge: "MOST POPULAR",
+    tag: "Silver Pearl",
   },
   {
-    name: "Paint Correction",
-    tagline: "Swirl & defect removal",
-    spec1: { k: "8 hrs",   v: "Duration" },
-    spec2: { k: "2-Stage", v: "Correction" },
-    spec3: { k: "£599+",   v: "From" },
+    name: "BMW M4 Competition",
+    year: "2024",
+    price: "€132,500",
+    km: "3,400 km",
     img: car2,
-    ref: "SVC · 02",
-    badge: "RECOMMENDED",
+    tag: "Tanzanite Blue",
   },
   {
-    name: "Ceramic Coating",
-    tagline: "Long-term paint protection",
-    spec1: { k: "16 hrs",  v: "Duration" },
-    spec2: { k: "9H",      v: "Protection" },
-    spec3: { k: "£999+",   v: "From" },
+    name: "Audi RS7 Sportback",
+    year: "2023",
+    price: "€189,000",
+    km: "12,100 km",
     img: car3,
-    ref: "SVC · 03",
-    badge: "PREMIUM",
+    tag: "Daytona Grey",
   },
 ];
 
 export function Collection() {
   return (
-    <section id="collection" className="content-auto relative overflow-hidden py-36 md:py-56">
-      <div className="mx-auto max-w-[1600px] px-8 md:px-16">
-
-        {/* Header */}
-        <div className="flex items-end justify-between border-b border-border/40 pb-16">
+    <section id="collection" className="content-auto relative overflow-hidden py-32 md:py-52">
+      <div className="mx-auto max-w-400 px-6 md:px-16">
+        <div className="flex items-end justify-between">
           <div>
-            <p
-              className="flex items-center gap-3 text-[9px] tracking-[0.55em] text-gold/65"
-              style={{ fontFamily: "var(--font-mono)" }}
-            >
-              <span className="h-px w-8 bg-gold/40" />
-              SERVICES
-            </p>
-            <h2 className="mt-8 font-display text-[3rem] font-light leading-[1.0] md:text-[4.5rem] lg:text-[6rem]">
-              Premium packages.
-              <br />
-              <span className="italic gold-shine">For every level.</span>
+            <div className="text-xs tracking-[0.4em] text-gold/80">— COLLECTION</div>
+            <h2 className="mt-8 font-display text-6xl leading-none tracking-tight md:text-7xl">
+              In the garage <span className="italic gold-shine">now</span>.
             </h2>
           </div>
           <a
             href="#contact"
-            className="hidden text-[0.78rem] tracking-[0.12em] text-muted-foreground/60 transition hover:text-gold md:inline-flex"
-            style={{ fontFamily: "var(--font-sans)" }}
+            className="hidden text-sm text-muted-foreground transition hover:text-gold md:inline"
           >
-            ENQUIRE ABOUT CUSTOM WORK →
+            Request a custom search →
           </a>
         </div>
 
-        {/* Service listings */}
-        <div className="mt-0 divide-y divide-border/30">
-          {SERVICES.map((svc, i) => (
+        <div className="mt-24 space-y-36">
+          {COLLECTION.map((car, i) => (
             <motion.div
-              key={svc.name}
-              initial={{ opacity: 0, y: 60 }}
+              key={car.name}
+              initial={{ opacity: 0, y: 80 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 1.0 }}
-              className={`grid items-center gap-14 py-20 md:grid-cols-2 md:gap-20 ${
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 1 }}
+              className={`grid items-center gap-16 md:grid-cols-2 md:gap-24 ${
                 i % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""
               }`}
             >
-              {/* Image */}
               <TiltCard>
                 <div className="relative">
-                  <div className="absolute -inset-8 rounded-full bg-gold/8 blur-3xl opacity-0 transition-opacity duration-700 group-hover/tilt:opacity-100" />
-                  <div className="group/img relative overflow-hidden border border-border/30" style={{ borderRadius: "4px" }}>
+                  <div className="absolute -inset-8 rounded-full bg-gradient-radial from-gold/25 via-transparent to-transparent blur-2xl" />
+                  <div className="group/img relative overflow-hidden">
                     <img
-                      src={svc.img}
-                      alt={svc.name}
-                      className="relative w-full transition-transform duration-700 group-hover/img:scale-[1.04]"
+                      src={car.img}
+                      alt={car.name}
+                      className="relative w-full transition-transform duration-700 group-hover/img:scale-[1.03]"
                       loading="lazy"
                       decoding="async"
                       width={1280}
                       height={768}
                     />
-                    {/* Paint glint sweep */}
-                    <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 -skew-x-12 -translate-x-full bg-linear-to-r from-transparent via-white/20 to-transparent transition-transform duration-1000 ease-in-out group-hover/img:translate-x-[600%]" />
+                    <div className="pointer-events-none absolute inset-y-0 left-0 w-1/3 -skew-x-12 -translate-x-full bg-linear-to-r from-transparent via-white/25 to-transparent transition-transform duration-900 ease-in-out group-hover/img:translate-x-[500%]" />
                   </div>
                 </div>
               </TiltCard>
 
-              {/* Details */}
               <div className="py-4">
-                <div
-                  className="flex items-center gap-3 text-[9px] tracking-[0.4em] text-gold/70"
-                  style={{ fontFamily: "var(--font-mono)" }}
-                >
-                  <span className="h-px w-8 bg-gold/50" />
-                  {svc.ref} · {svc.badge}
+                <div className="flex items-center gap-3 text-xs tracking-[0.3em] text-gold">
+                  <span className="h-px w-8 bg-gold" />
+                  REF. 0{i + 1} · {car.tag.toUpperCase()}
                 </div>
-
-                <h3 className="mt-8 font-display text-[2.5rem] font-light leading-[1.05] md:text-[3.2rem] lg:text-[4rem]">
-                  {svc.name}
+                <h3 className="mt-8 font-display text-5xl leading-[1.05] md:text-6xl">
+                  {car.name}
                 </h3>
-
-                <p className="mt-4 text-[0.88rem] leading-[1.9] text-muted-foreground/70">
-                  {svc.tagline}
-                </p>
-
-                {/* Specs */}
-                <div className="mt-10 grid grid-cols-3 divide-x divide-border/40 border border-border/40" style={{ borderRadius: "2px" }}>
-                  {[svc.spec1, svc.spec2, svc.spec3].map((d) => (
-                    <div key={d.v} className="px-5 py-6 md:px-7">
-                      <div
-                        className="text-[8.5px] tracking-[0.3em] text-muted-foreground/55"
-                        style={{ fontFamily: "var(--font-mono)" }}
-                      >
+                <div className="mt-10 grid grid-cols-3 gap-px overflow-hidden rounded-xl border border-border bg-border">
+                  {[
+                    { k: car.year, v: "Year" },
+                    { k: car.km, v: "Mileage" },
+                    { k: car.price, v: "Price" },
+                  ].map((d) => (
+                    <div key={d.v} className="bg-card px-5 py-6 md:px-6">
+                      <div className="text-xs tracking-widest text-muted-foreground">
                         {d.v.toUpperCase()}
                       </div>
-                      <div className="mt-2.5 font-display text-[1.3rem] font-light">
-                        {d.k}
-                      </div>
+                      <div className="mt-2 font-display text-xl">{d.k}</div>
                     </div>
                   ))}
                 </div>
-
-                {/* Actions */}
-                <div className="mt-10 flex gap-3">
+                <div className="mt-10 flex gap-4">
                   <a
                     href="#contact"
-                    className="inline-flex items-center gap-2 bg-gold px-7 py-3.5 text-[0.78rem] tracking-[0.12em] text-primary-foreground transition hover:opacity-90"
-                    style={{ borderRadius: "2px", fontFamily: "var(--font-sans)" }}
+                    className="inline-flex items-center gap-2 rounded-full bg-gold px-7 py-3.5 text-sm text-primary-foreground transition hover:scale-[1.02]"
                   >
-                    BOOK THIS SERVICE →
+                    Reserve this car →
                   </a>
                   <a
                     href="#contact"
-                    className="inline-flex items-center border border-foreground/15 px-7 py-3.5 text-[0.78rem] tracking-[0.12em] transition hover:border-gold/50 hover:text-gold"
-                    style={{ borderRadius: "2px", fontFamily: "var(--font-sans)" }}
+                    className="inline-flex items-center gap-2 rounded-full border border-foreground/20 px-7 py-3.5 text-sm transition hover:border-gold hover:text-gold"
                   >
-                    ENQUIRE
+                    Enquire
                   </a>
                 </div>
               </div>

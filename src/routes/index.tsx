@@ -9,7 +9,6 @@ import { Collection } from "@/components/Collection";
 import { Voices } from "@/components/Voices";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
-import { Atmosphere } from "@/components/Atmosphere";
 
 const CinematicDrive = lazy(() =>
   import("@/components/CinematicDrive").then((m) => ({ default: m.CinematicDrive })),
@@ -22,16 +21,16 @@ const Runway = lazy(() =>
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Polish Station — Premium Car Detailing" },
+      { title: "MAISON AUTO — Curated Luxury Cars, Delivered" },
       {
         name: "description",
         content:
-          "Expert ceramic coating, paint correction, and car detailing. Book your appointment online.",
+          "Hand-picked European luxury cars, sourced, verified, and delivered to your door. Concierge auto-buying for collectors and enthusiasts.",
       },
-      { property: "og:title", content: "Polish Station — Premium Car Detailing" },
+      { property: "og:title", content: "MAISON AUTO — Curated Luxury Cars" },
       {
         property: "og:description",
-        content: "Ceramic coating, paint correction, and professional detailing. Precision in every detail.",
+        content: "Concierge sourcing of European luxury cars. Verified. Delivered.",
       },
     ],
   }),
@@ -41,16 +40,15 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <main className="relative bg-background text-foreground">
-      <Atmosphere />
       <Nav />
       <Hero />
       <Marquee />
-      <Suspense fallback={<SceneFallback label="Loading the experience..." tag="SCENE · PREPARING" tall />}>
+      <Suspense fallback={<SceneFallback label="Loading the drive..." tag="SCENE · PREPARING" tall />}>
         <CinematicDrive />
       </Suspense>
       <Atelier />
       <Process />
-      <Suspense fallback={<SceneFallback label="Loading the gallery..." tag="GALLERY · PREPARING" />}>
+      <Suspense fallback={<SceneFallback label="Loading the showroom..." tag="FLEET · PREPARING" />}>
         <Runway />
       </Suspense>
       <Collection />
@@ -64,16 +62,11 @@ function Index() {
 function SceneFallback({ label, tag, tall }: { label: string; tag: string; tall?: boolean }) {
   return (
     <section
-      className={`content-auto flex items-center justify-center border-y border-border/40 bg-card/30 ${tall ? "h-[90vh]" : "h-[70vh]"}`}
+      className={`content-auto flex items-center justify-center border-y border-border bg-card/40 ${tall ? "h-[90vh]" : "h-[70vh]"}`}
     >
       <div className="text-center">
-        <div className="font-display text-[2.5rem] font-light text-gold/70 md:text-[3.5rem]">{label}</div>
-        <div
-          className="mt-3 text-[9px] tracking-[0.45em] text-muted-foreground/50"
-          style={{ fontFamily: "var(--font-mono)" }}
-        >
-          {tag}
-        </div>
+        <div className="font-display text-4xl text-gold md:text-5xl">{label}</div>
+        <div className="mt-3 text-xs tracking-[0.4em] text-muted-foreground">{tag}</div>
       </div>
     </section>
   );
