@@ -92,7 +92,7 @@ export function Hero() {
 
         {/* ── Headline block (vertically centred in remaining space) */}
         <div className="flex flex-1 flex-col justify-center">
-          <h1 className="font-display font-medium">
+          <h1 className="font-display">
 
             {/* "Buy your" — masked slide-up */}
             <div className="overflow-hidden">
@@ -179,7 +179,7 @@ export function Hero() {
               key={s.v}
               className={`py-5 ${i > 0 ? "border-l border-border/30 pl-6" : ""} pr-4`}
             >
-              <div className="font-display text-2xl text-gold md:text-3xl">{s.k}</div>
+              <div className="font-bebas text-2xl text-gold md:text-3xl">{s.k}</div>
               <div className="mt-1.5 text-[9px] tracking-[0.22em] text-muted-foreground/70">
                 {s.v.toUpperCase()}
               </div>

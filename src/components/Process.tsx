@@ -65,7 +65,7 @@ export function Process() {
               </div>
 
               <div className="relative">
-                <div className="font-display text-7xl text-gold/30 transition-colors duration-500 group-hover:text-gold/70">
+                <div className="font-bebas text-7xl text-gold/30 transition-colors duration-500 group-hover:text-gold/70">
                   {s.n}
                 </div>
                 <h3 className="mt-10 font-display text-3xl">{s.t}</h3>

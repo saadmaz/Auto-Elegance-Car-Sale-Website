@@ -271,11 +271,11 @@ function TelemetryHUD({ progress }: { progress: ReturnType<typeof useSpring> }) 
         <div className="font-mono text-[10px] tracking-[0.3em] text-muted-foreground">
           SPEED · KM/H
         </div>
-        <div className="font-display text-5xl text-gold tabular-nums">{text}</div>
+        <div className="font-bebas text-5xl text-gold tabular-nums">{text}</div>
       </div>
       <div className="rounded-2xl border border-gold/30 bg-background/50 px-6 py-4 backdrop-blur-md">
         <div className="font-mono text-[10px] tracking-[0.3em] text-muted-foreground">GEAR</div>
-        <div className="font-display text-5xl text-gold">{gearText}</div>
+        <div className="font-bebas text-5xl text-gold">{gearText}</div>
       </div>
       <div className="relative h-20 w-20">
         <svg viewBox="0 0 36 36" className="h-full w-full -rotate-90">
@@ -302,7 +302,7 @@ function TelemetryHUD({ progress }: { progress: ReturnType<typeof useSpring> }) 
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
           <div className="font-mono text-[8px] tracking-widest text-muted-foreground">RPM</div>
-          <div className="font-display text-sm">7.2k</div>
+          <div className="font-bebas text-sm">7.2k</div>
         </div>
       </div>
     </div>

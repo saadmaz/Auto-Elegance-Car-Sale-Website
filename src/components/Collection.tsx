@@ -98,7 +98,7 @@ export function Collection() {
                       <div className="text-xs tracking-widest text-muted-foreground">
                         {d.v.toUpperCase()}
                       </div>
-                      <div className="mt-2 font-display text-xl">{d.k}</div>
+                      <div className="mt-2 font-bebas text-xl">{d.k}</div>
                     </div>
                   ))}
                 </div>

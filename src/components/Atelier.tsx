@@ -29,12 +29,12 @@ export function Atelier() {
           </p>
           <div className="mt-14 flex items-center gap-10 text-xs tracking-widest text-muted-foreground">
             <div>
-              <div className="font-display text-4xl text-foreground">98%</div>
+              <div className="font-bebas text-4xl text-foreground">98%</div>
               <div className="mt-2">REPEAT CLIENTS</div>
             </div>
             <div className="h-14 w-px bg-border" />
             <div>
-              <div className="font-display text-4xl text-foreground">9.8</div>
+              <div className="font-bebas text-4xl text-foreground">9.8</div>
               <div className="mt-2">AVG. RATING / 10</div>
             </div>
           </div>
