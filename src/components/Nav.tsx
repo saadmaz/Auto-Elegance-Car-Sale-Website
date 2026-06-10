@@ -2,11 +2,11 @@ import { motion, AnimatePresence } from "motion/react";
 import { useState, useEffect } from "react";
 
 const NAV_LINKS = [
-  { label: "Atelier",    href: "#atelier" },
-  { label: "Collection", href: "#collection" },
-  { label: "Process",    href: "#process" },
-  { label: "Voices",     href: "#voices" },
-  { label: "Contact",    href: "#contact" },
+  { label: "Craft",    href: "#atelier" },
+  { label: "Services", href: "#collection" },
+  { label: "Process",  href: "#process" },
+  { label: "Clients",  href: "#voices" },
+  { label: "Book",     href: "#contact" },
 ];
 
 export function Nav() {
@@ -39,17 +39,17 @@ export function Nav() {
             className="flex h-10 w-10 items-center justify-center border border-gold/30 transition-colors group-hover:border-gold/60"
             style={{ borderRadius: "2px" }}
           >
-            <span className="font-display text-lg text-gold leading-none">M</span>
+            <span className="font-display text-lg text-gold leading-none">P</span>
           </div>
           <div className="leading-none">
             <div className="font-display text-[1.05rem] tracking-[0.18em] text-foreground/90">
-              MAISON AUTO
+              POLISH STATION
             </div>
             <div
               className="mt-1 text-[9px] tracking-[0.45em] text-muted-foreground/60"
               style={{ fontFamily: "var(--font-mono)" }}
             >
-              EST. 2014
+              EST. 2024
             </div>
           </div>
         </a>
@@ -77,7 +77,7 @@ export function Nav() {
             style={{ borderRadius: "2px", fontFamily: "var(--font-sans)" }}
           >
             <span className="h-1.5 w-1.5 rounded-full bg-gold animate-pulse" />
-            REQUEST A SEARCH
+            BOOK NOW
           </a>
 
           <button
@@ -138,7 +138,7 @@ export function Nav() {
                 className="mt-8 inline-flex w-full items-center justify-center gap-2.5 bg-gold px-8 py-4 text-[0.78rem] tracking-[0.18em] text-primary-foreground transition hover:opacity-90"
                 style={{ borderRadius: "2px", fontFamily: "var(--font-sans)" }}
               >
-                REQUEST A SEARCH
+                BOOK NOW
               </motion.a>
             </nav>
           </motion.div>

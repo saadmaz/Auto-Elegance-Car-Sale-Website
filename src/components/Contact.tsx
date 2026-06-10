@@ -3,9 +3,9 @@ import { useState } from "react";
 import type { FormEvent } from "react";
 
 const CONTACT_ITEMS = [
-  { label: "CALL",  value: "+48 600 000 000" },
-  { label: "WRITE", value: "hello@maisonauto.com" },
-  { label: "VISIT", value: "Warsaw · Berlin · Munich" },
+  { label: "CALL",  value: "+44 7700 000 000" },
+  { label: "WRITE", value: "hello@polishstation.com" },
+  { label: "VISIT", value: "By appointment only" },
 ];
 
 export function Contact() {
@@ -35,13 +35,13 @@ export function Contact() {
           </p>
 
           <h2 className="mt-8 font-display text-[3rem] font-light leading-[1.0] md:text-[4.5rem] lg:text-[6rem]">
-            Tell us the
+            Book your
             <br />
-            <span className="italic gold-shine">dream.</span>
+            <span className="italic gold-shine">service.</span>
           </h2>
 
           <p className="mt-10 max-w-sm text-[0.88rem] leading-[1.95] text-muted-foreground/80">
-            One form. One reply within 24 hours. One car, found.
+            One form. One reply within 4 hours. Your appointment, confirmed.
           </p>
 
           <div className="mt-16 space-y-10">
@@ -76,13 +76,13 @@ export function Contact() {
                 className="text-[9px] tracking-[0.5em] text-gold/70"
                 style={{ fontFamily: "var(--font-mono)" }}
               >
-                — REQUEST RECEIVED
+                — BOOKING REQUEST RECEIVED
               </p>
               <div className="mt-8 font-display text-[3rem] font-light italic gold-shine leading-tight">
                 Thank you.
               </div>
               <p className="mt-8 max-w-xs text-[0.88rem] leading-[1.95] text-muted-foreground/75">
-                We&apos;ve received your request and will reply within 24 hours.
+                We&apos;ll confirm your appointment within 4 hours.
               </p>
               <button
                 onClick={() => setStatus("idle")}
@@ -103,10 +103,10 @@ export function Contact() {
             >
               <div className="grid gap-10">
                 {[
-                  { l: "Your name",                     t: "text",  required: true  },
-                  { l: "Email address",                  t: "email", required: true  },
-                  { l: "Dream car (brand, model, year)", t: "text",  required: false },
-                  { l: "Budget",                         t: "text",  required: false },
+                  { l: "Your name",                      t: "text",  required: true  },
+                  { l: "Email address",                   t: "email", required: true  },
+                  { l: "Your vehicle (make, model, year)", t: "text", required: false },
+                  { l: "Service you're interested in",    t: "text",  required: false },
                 ].map((f) => (
                   <label key={f.l} className="block">
                     <span
@@ -151,7 +151,7 @@ export function Contact() {
                       SENDING…
                     </>
                   ) : (
-                    "SEND MY REQUEST →"
+                    "REQUEST A BOOKING →"
                   )}
                 </button>
               </div>

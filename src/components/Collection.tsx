@@ -4,33 +4,36 @@ import car1 from "@/assets/car-1.webp";
 import car2 from "@/assets/car-2.webp";
 import car3 from "@/assets/car-3.webp";
 
-const COLLECTION = [
+const SERVICES = [
   {
-    name: "Porsche 911 Carrera",
-    year: "2023",
-    price: "€148,000",
-    km: "8,200 km",
+    name: "Signature Detail",
+    tagline: "The essential refresh",
+    spec1: { k: "4 hrs",   v: "Duration" },
+    spec2: { k: "Single",  v: "Stage Polish" },
+    spec3: { k: "£299+",   v: "From" },
     img: car1,
-    color: "Silver Pearl",
-    ref: "REF · 087",
+    ref: "SVC · 01",
+    badge: "MOST POPULAR",
   },
   {
-    name: "BMW M4 Competition",
-    year: "2024",
-    price: "€132,500",
-    km: "3,400 km",
+    name: "Paint Correction",
+    tagline: "Swirl & defect removal",
+    spec1: { k: "8 hrs",   v: "Duration" },
+    spec2: { k: "2-Stage", v: "Correction" },
+    spec3: { k: "£599+",   v: "From" },
     img: car2,
-    color: "Tanzanite Blue",
-    ref: "REF · 091",
+    ref: "SVC · 02",
+    badge: "RECOMMENDED",
   },
   {
-    name: "Audi RS7 Sportback",
-    year: "2023",
-    price: "€189,000",
-    km: "12,100 km",
+    name: "Ceramic Coating",
+    tagline: "Long-term paint protection",
+    spec1: { k: "16 hrs",  v: "Duration" },
+    spec2: { k: "9H",      v: "Protection" },
+    spec3: { k: "£999+",   v: "From" },
     img: car3,
-    color: "Daytona Grey",
-    ref: "REF · 094",
+    ref: "SVC · 03",
+    badge: "PREMIUM",
   },
 ];
 
@@ -47,12 +50,12 @@ export function Collection() {
               style={{ fontFamily: "var(--font-mono)" }}
             >
               <span className="h-px w-8 bg-gold/40" />
-              COLLECTION
+              SERVICES
             </p>
             <h2 className="mt-8 font-display text-[3rem] font-light leading-[1.0] md:text-[4.5rem] lg:text-[6rem]">
-              In the garage
+              Premium packages.
               <br />
-              <span className="italic gold-shine">right now.</span>
+              <span className="italic gold-shine">For every level.</span>
             </h2>
           </div>
           <a
@@ -60,15 +63,15 @@ export function Collection() {
             className="hidden text-[0.78rem] tracking-[0.12em] text-muted-foreground/60 transition hover:text-gold md:inline-flex"
             style={{ fontFamily: "var(--font-sans)" }}
           >
-            REQUEST A CUSTOM SEARCH →
+            ENQUIRE ABOUT CUSTOM WORK →
           </a>
         </div>
 
-        {/* Car listings */}
+        {/* Service listings */}
         <div className="mt-0 divide-y divide-border/30">
-          {COLLECTION.map((car, i) => (
+          {SERVICES.map((svc, i) => (
             <motion.div
-              key={car.name}
+              key={svc.name}
               initial={{ opacity: 0, y: 60 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
@@ -83,8 +86,8 @@ export function Collection() {
                   <div className="absolute -inset-8 rounded-full bg-gold/8 blur-3xl opacity-0 transition-opacity duration-700 group-hover/tilt:opacity-100" />
                   <div className="group/img relative overflow-hidden border border-border/30" style={{ borderRadius: "4px" }}>
                     <img
-                      src={car.img}
-                      alt={car.name}
+                      src={svc.img}
+                      alt={svc.name}
                       className="relative w-full transition-transform duration-700 group-hover/img:scale-[1.04]"
                       loading="lazy"
                       decoding="async"
@@ -104,20 +107,20 @@ export function Collection() {
                   style={{ fontFamily: "var(--font-mono)" }}
                 >
                   <span className="h-px w-8 bg-gold/50" />
-                  {car.ref} · {car.color.toUpperCase()}
+                  {svc.ref} · {svc.badge}
                 </div>
 
                 <h3 className="mt-8 font-display text-[2.5rem] font-light leading-[1.05] md:text-[3.2rem] lg:text-[4rem]">
-                  {car.name}
+                  {svc.name}
                 </h3>
+
+                <p className="mt-4 text-[0.88rem] leading-[1.9] text-muted-foreground/70">
+                  {svc.tagline}
+                </p>
 
                 {/* Specs */}
                 <div className="mt-10 grid grid-cols-3 divide-x divide-border/40 border border-border/40" style={{ borderRadius: "2px" }}>
-                  {[
-                    { k: car.year,  v: "Year" },
-                    { k: car.km,    v: "Mileage" },
-                    { k: car.price, v: "Price" },
-                  ].map((d) => (
+                  {[svc.spec1, svc.spec2, svc.spec3].map((d) => (
                     <div key={d.v} className="px-5 py-6 md:px-7">
                       <div
                         className="text-[8.5px] tracking-[0.3em] text-muted-foreground/55"
@@ -139,7 +142,7 @@ export function Collection() {
                     className="inline-flex items-center gap-2 bg-gold px-7 py-3.5 text-[0.78rem] tracking-[0.12em] text-primary-foreground transition hover:opacity-90"
                     style={{ borderRadius: "2px", fontFamily: "var(--font-sans)" }}
                   >
-                    RESERVE THIS CAR →
+                    BOOK THIS SERVICE →
                   </a>
                   <a
                     href="#contact"

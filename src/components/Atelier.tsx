@@ -27,43 +27,44 @@ export function Atelier() {
             style={{ fontFamily: "var(--font-mono)" }}
           >
             <span className="h-px w-8 bg-gold/40" />
-            THE ATELIER
+            THE CRAFT
           </p>
 
           <h2 className="mt-8 font-display text-[3rem] font-light leading-[1.05] md:text-[4rem] lg:text-[5rem]">
-            A car is not a
+            Your paint deserves
             <br />
-            transaction.
+            perfection.
             <br />
-            <span className="italic gold-shine">It&apos;s a moment.</span>
+            <span className="italic gold-shine">We deliver it.</span>
           </h2>
 
           <div className="mt-1 h-px w-16 bg-gold/30" />
 
           <p className="mt-10 max-w-sm text-[0.9rem] leading-[1.95] text-muted-foreground/80">
-            For over a decade we&apos;ve made the unromantic act of buying a car feel like
-            coming home. Every car we touch is sourced personally, verified against a
-            32-point protocol, and prepared with reverence.
+            Every vehicle that enters our studio is treated as a precision project.
+            We work through a meticulous seven-stage process — from initial
+            assessment to final inspection — using only professional-grade products
+            and techniques.
           </p>
 
           <div className="mt-16 flex items-center gap-12">
             <div>
-              <div className="font-display text-[2.8rem] font-light text-foreground">98%</div>
+              <div className="font-display text-[2.8rem] font-light text-foreground">500+</div>
               <div
                 className="mt-2 text-[8.5px] tracking-[0.3em] text-muted-foreground/60"
                 style={{ fontFamily: "var(--font-mono)" }}
               >
-                REPEAT CLIENTS
+                CARS DETAILED
               </div>
             </div>
             <div className="h-14 w-px bg-border/60" />
             <div>
-              <div className="font-display text-[2.8rem] font-light text-foreground">9.8</div>
+              <div className="font-display text-[2.8rem] font-light text-foreground">5.0★</div>
               <div
                 className="mt-2 text-[8.5px] tracking-[0.3em] text-muted-foreground/60"
                 style={{ fontFamily: "var(--font-mono)" }}
               >
-                AVG. RATING / 10
+                AVG. RATING
               </div>
             </div>
           </div>
@@ -77,7 +78,7 @@ export function Atelier() {
           >
             <img
               src={carTop}
-              alt="Aerial luxury car"
+              alt="Car being detailed"
               className="h-full w-full object-cover scale-[1.03]"
               loading="lazy"
               decoding="async"
@@ -95,10 +96,10 @@ export function Atelier() {
                   className="text-[9px] tracking-[0.4em] text-gold/80"
                   style={{ fontFamily: "var(--font-mono)" }}
                 >
-                  REF. 087 / 2024
+                  PAINT CORRECTION · CERAMIC
                 </div>
                 <div className="mt-3 font-display text-[1.4rem] font-light leading-tight">
-                  Mercedes-AMG GT Black Series
+                  BMW M4 Competition
                 </div>
               </div>
               <div
@@ -128,10 +129,10 @@ export function Atelier() {
               className="text-[8.5px] tracking-[0.4em] text-gold/70"
               style={{ fontFamily: "var(--font-mono)" }}
             >
-              32-POINT PROTOCOL
+              7-STAGE PROCESS
             </div>
             <div className="mt-3 font-display text-[2rem] font-light">
-              Every. Car.
+              Every. Detail.
             </div>
           </motion.div>
         </div>

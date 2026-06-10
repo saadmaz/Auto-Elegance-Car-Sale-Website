@@ -9,6 +9,7 @@ import { Collection } from "@/components/Collection";
 import { Voices } from "@/components/Voices";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
+import { Atmosphere } from "@/components/Atmosphere";
 
 const CinematicDrive = lazy(() =>
   import("@/components/CinematicDrive").then((m) => ({ default: m.CinematicDrive })),
@@ -21,16 +22,16 @@ const Runway = lazy(() =>
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "MAISON AUTO — Curated Luxury Cars, Delivered" },
+      { title: "Polish Station — Premium Car Detailing" },
       {
         name: "description",
         content:
-          "Hand-picked European luxury cars, sourced, verified, and delivered to your door. Concierge auto-buying for collectors and enthusiasts.",
+          "Expert ceramic coating, paint correction, and car detailing. Book your appointment online.",
       },
-      { property: "og:title", content: "MAISON AUTO — Curated Luxury Cars" },
+      { property: "og:title", content: "Polish Station — Premium Car Detailing" },
       {
         property: "og:description",
-        content: "Concierge sourcing of European luxury cars. Verified. Delivered.",
+        content: "Ceramic coating, paint correction, and professional detailing. Precision in every detail.",
       },
     ],
   }),
@@ -40,15 +41,16 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <main className="relative bg-background text-foreground">
+      <Atmosphere />
       <Nav />
       <Hero />
       <Marquee />
-      <Suspense fallback={<SceneFallback label="Loading the drive..." tag="SCENE · PREPARING" tall />}>
+      <Suspense fallback={<SceneFallback label="Loading the experience..." tag="SCENE · PREPARING" tall />}>
         <CinematicDrive />
       </Suspense>
       <Atelier />
       <Process />
-      <Suspense fallback={<SceneFallback label="Loading the showroom..." tag="FLEET · PREPARING" />}>
+      <Suspense fallback={<SceneFallback label="Loading the gallery..." tag="GALLERY · PREPARING" />}>
         <Runway />
       </Suspense>
       <Collection />

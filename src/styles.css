@@ -6,8 +6,9 @@
 
 @theme inline {
   --font-display: "Cormorant Garamond", "Cormorant", "Georgia", serif;
-  --font-sans: "DM Sans", system-ui, -apple-system, sans-serif;
+  --font-sans: "Manrope", system-ui, -apple-system, sans-serif;
   --font-mono: "Space Grotesk", system-ui, sans-serif;
+  --font-bebas: "Bebas Neue", impact, sans-serif;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -43,19 +44,19 @@
   --card-foreground: oklch(0.95 0.008 65);
   --popover: oklch(0.08 0.004 270);
   --popover-foreground: oklch(0.95 0.008 65);
-  --primary: oklch(0.78 0.09 82);
+  --primary: oklch(0.65 0.22 43);
   --primary-foreground: oklch(0.06 0.003 270);
   --secondary: oklch(0.12 0.005 270);
   --secondary-foreground: oklch(0.95 0.008 65);
   --muted: oklch(0.12 0.005 270);
   --muted-foreground: oklch(0.50 0.018 65);
-  --accent: oklch(0.78 0.09 82);
+  --accent: oklch(0.65 0.22 43);
   --accent-foreground: oklch(0.06 0.003 270);
-  --gold: oklch(0.78 0.09 82);
-  --gold-muted: oklch(0.52 0.07 78);
+  --gold: oklch(0.65 0.22 43);
+  --gold-muted: oklch(0.50 0.14 43);
   --border: oklch(0.20 0.006 60 / 45%);
   --input: oklch(0.18 0.006 60);
-  --ring: oklch(0.78 0.09 82);
+  --ring: oklch(0.65 0.22 43);
   --destructive: oklch(0.58 0.22 25);
   --destructive-foreground: oklch(0.98 0 0);
 }
@@ -95,6 +96,10 @@
     font-family: var(--font-mono);
     letter-spacing: 0;
   }
+  .font-bebas {
+    font-family: var(--font-bebas);
+    letter-spacing: 0.05em;
+  }
   .text-gold {
     color: var(--color-gold);
   }
@@ -102,13 +107,13 @@
     background-color: var(--color-gold);
   }
 
-  /* Refined static gold gradient — replaces the older animated shimmer */
+  /* Orange gradient text */
   .gold-gradient-text {
     background: linear-gradient(
       135deg,
-      oklch(0.90 0.11 90) 0%,
-      oklch(0.78 0.09 82) 45%,
-      oklch(0.58 0.07 74) 100%
+      oklch(0.80 0.18 55) 0%,
+      oklch(0.65 0.22 43) 45%,
+      oklch(0.50 0.16 43) 100%
     );
     -webkit-background-clip: text;
     background-clip: text;
@@ -116,13 +121,13 @@
     color: transparent;
   }
 
-  /* Gold italic accent — used inside headings */
+  /* Orange italic accent — used inside headings */
   .gold-shine {
     background: linear-gradient(
       135deg,
-      oklch(0.88 0.11 90) 0%,
-      oklch(0.78 0.09 82) 55%,
-      oklch(0.62 0.08 76) 100%
+      oklch(0.80 0.18 55) 0%,
+      oklch(0.65 0.22 43) 55%,
+      oklch(0.52 0.16 43) 100%
     );
     -webkit-background-clip: text;
     background-clip: text;
@@ -132,7 +137,7 @@
 
   .hero-gradient {
     background:
-      radial-gradient(ellipse at 60% 40%, oklch(0.14 0.04 80 / 0.45) 0%, transparent 55%),
+      radial-gradient(ellipse at 60% 40%, oklch(0.20 0.08 43 / 0.45) 0%, transparent 55%),
       radial-gradient(ellipse at 20% 80%, oklch(0.10 0.03 270 / 0.5) 0%, transparent 50%),
       var(--color-background);
   }
@@ -147,8 +152,8 @@
 
   .glow-gold {
     box-shadow:
-      0 0 80px -16px oklch(0.78 0.09 82 / 0.45),
-      0 0 160px -60px oklch(0.78 0.09 82 / 0.25);
+      0 0 80px -16px oklch(0.65 0.22 43 / 0.45),
+      0 0 160px -60px oklch(0.65 0.22 43 / 0.25);
   }
 
   @keyframes float {
@@ -164,10 +169,10 @@
     contain-intrinsic-size: 1px 900px;
   }
 
-  /* Fine horizontal rule in gold */
+  /* Fine horizontal rule in orange */
   .rule-gold {
     height: 1px;
-    background: linear-gradient(90deg, transparent, oklch(0.78 0.09 82 / 0.6), transparent);
+    background: linear-gradient(90deg, transparent, oklch(0.65 0.22 43 / 0.6), transparent);
   }
 }
 

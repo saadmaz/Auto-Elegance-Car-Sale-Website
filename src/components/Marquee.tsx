@@ -1,14 +1,14 @@
 const BRANDS = [
-  "Porsche",
-  "Mercedes-AMG",
-  "BMW M",
-  "Audi RS",
-  "Lamborghini",
-  "Ferrari",
-  "Aston Martin",
-  "Bentley",
-  "McLaren",
-  "Maserati",
+  "Ceramic Coating",
+  "Paint Correction",
+  "Interior Detailing",
+  "Headlight Restoration",
+  "Hydrophobic Protection",
+  "Clay Bar Treatment",
+  "Machine Polishing",
+  "Nano Coating",
+  "Paint Protection Film",
+  "Deep Foam Wash",
 ];
 
 export function Marquee() {

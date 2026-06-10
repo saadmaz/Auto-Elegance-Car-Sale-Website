@@ -3,21 +3,21 @@ import heroCar from "@/assets/hero-car.webp";
 
 const QUOTES = [
   {
-    q: "They found the exact spec I'd been hunting for two years. Delivered in three weeks. Flawless.",
-    who: "Mateusz K.",
-    car: "Porsche Cayman GT4",
+    q: "The ceramic coating left my paint looking better than the day it left the factory. Genuinely impressive work.",
+    who: "Michael D.",
+    car: "Porsche 911 — Ceramic Coating",
     rating: 5,
   },
   {
-    q: "I never set foot in a dealership. The car arrived better than described — and that's saying something.",
-    who: "Agnieszka W.",
-    car: "Audi e-tron GT",
+    q: "Booked the paint correction on my M4. Six years of swirls gone in a single session. Can't stop looking at it.",
+    who: "James R.",
+    car: "BMW M4 — Paint Correction",
     rating: 5,
   },
   {
-    q: "Worth every euro. The peace of mind alone is the product.",
-    who: "Krzysztof B.",
-    car: "BMW M2 CS",
+    q: "Incredibly professional. The attention to detail is on another level. My car came back spotless in every sense.",
+    who: "Sarah T.",
+    car: "Range Rover — Full Detail",
     rating: 5,
   },
 ];
@@ -54,7 +54,7 @@ export function Voices() {
               CLIENT VOICES
             </p>
             <h2 className="mt-8 font-display text-[3rem] font-light leading-[1.0] md:text-[4.5rem] lg:text-[6rem]">
-              4,200 owners.
+              500 clients.
               <br />
               <span className="italic text-foreground/30">A few of their words.</span>
             </h2>
@@ -65,7 +65,7 @@ export function Voices() {
           >
             VERIFIED REVIEWS
             <br />
-            <span className="text-gold/60">★★★★★ AVG. 9.8 / 10</span>
+            <span className="text-gold/60">★★★★★ AVG. 5.0 / 5</span>
           </div>
         </div>
 

@@ -3,10 +3,10 @@ import { useEffect, useRef } from "react";
 import heroCar from "@/assets/hero-car.webp";
 
 const STATS = [
-  { k: "4,200+", v: "Cars Delivered" },
-  { k: "11 yrs",  v: "In Business" },
-  { k: "32-pt",   v: "Inspection" },
-  { k: "100%",    v: "Verified History" },
+  { k: "500+",  v: "Cars Detailed" },
+  { k: "5★",    v: "Avg Rating" },
+  { k: "100%",  v: "Premium Products" },
+  { k: "98%",   v: "Return Clients" },
 ];
 
 const EASE = [0.22, 1, 0.36, 1] as const;
@@ -84,13 +84,13 @@ export function Hero() {
             style={{ fontFamily: "var(--font-mono)" }}
           >
             <span className="h-px w-10 bg-gold/35" />
-            CONCIERGE AUTO ACQUISITION
+            PREMIUM CAR DETAILING
           </div>
           <span
             className="hidden text-[8px] tracking-[0.45em] text-foreground/18 md:block"
             style={{ fontFamily: "var(--font-mono)" }}
           >
-            EST. 2014 · WARSAW
+            EST. 2024
           </span>
         </motion.div>
 
@@ -105,7 +105,7 @@ export function Hero() {
                 transition={{ duration: 1.0, ease: EASE, delay: 0.26 }}
                 className="block text-[4rem] font-light leading-[0.92] md:text-[6rem] lg:text-[7.5rem] xl:text-[9rem]"
               >
-                Buy your
+                Paint
               </motion.span>
             </div>
 
@@ -116,7 +116,7 @@ export function Hero() {
                 transition={{ duration: 1.0, ease: EASE, delay: 0.40 }}
                 className="block text-[4rem] font-light italic leading-[0.92] gold-shine md:text-[6rem] lg:text-[7.5rem] xl:text-[9rem]"
               >
-                dream car.
+                Perfection.
               </motion.span>
             </div>
 
@@ -127,7 +127,7 @@ export function Hero() {
                 transition={{ duration: 1.0, ease: EASE, delay: 0.54 }}
                 className="block text-[4rem] font-light leading-[0.92] text-foreground/18 md:text-[6rem] lg:text-[7.5rem] xl:text-[9rem]"
               >
-                Online.
+                Details that last.
               </motion.span>
             </div>
           </h1>
@@ -140,27 +140,27 @@ export function Hero() {
             className="mt-10 max-w-[400px] md:mt-12"
           >
             <p className="text-[0.9rem] leading-[1.95] text-muted-foreground/85">
-              We source the finest European luxury cars, verify every detail,
-              and deliver straight to your door. No compromise.
+              We detail, protect, and restore your vehicle to showroom
+              perfection. Premium products. Expert hands. Zero compromise.
             </p>
 
             <div className="mt-9 flex flex-wrap items-center gap-3">
               <a
-                href="#collection"
+                href="#contact"
                 className="group relative inline-flex items-center gap-2.5 overflow-hidden bg-gold px-7 py-3.5 text-[0.78rem] tracking-[0.14em] text-primary-foreground transition hover:opacity-90"
                 style={{ borderRadius: "2px", fontFamily: "var(--font-sans)" }}
               >
-                VIEW COLLECTION
+                BOOK APPOINTMENT
                 <svg className="h-3 w-3 transition-transform group-hover:translate-x-0.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                   <path d="M5 12h14M13 5l7 7-7 7" />
                 </svg>
               </a>
               <a
-                href="#contact"
+                href="#collection"
                 className="inline-flex items-center border border-foreground/15 px-7 py-3.5 text-[0.78rem] tracking-[0.14em] transition hover:border-gold/50 hover:text-gold"
                 style={{ borderRadius: "2px", fontFamily: "var(--font-sans)" }}
               >
-                REQUEST A QUOTE
+                VIEW SERVICES
               </a>
             </div>
           </motion.div>

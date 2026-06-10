@@ -6,20 +6,20 @@ import car3 from "@/assets/car-3.webp";
 const STEPS = [
   {
     n: "01",
-    t: "We Search",
-    d: "You tell us the dream. We crawl auctions, private dealers, and our European network — surfacing only what fits.",
+    t: "Inspect & Plan",
+    d: "Every vehicle gets a full condition assessment under our studio lighting. We document every swirl, scratch, and contaminant — then build your personalised service plan before a single product touches the paint.",
     img: car1,
   },
   {
     n: "02",
-    t: "We Verify",
-    d: "Each candidate passes a 32-point inspection, full history check, and an in-person review by our specialists.",
+    t: "Correct & Polish",
+    d: "Multi-stage machine polishing eliminates defects, restores clarity, and prepares the surface to hold your chosen protection to its absolute maximum potential. No shortcuts. No fillers.",
     img: car2,
   },
   {
     n: "03",
-    t: "We Deliver",
-    d: "Paperwork, transport, registration — handled. The car arrives at your door, fueled, detailed, and ready.",
+    t: "Protect & Deliver",
+    d: "Ceramic coating or PPF application, followed by a final inspection under every angle of light. Your car is returned to you in showroom condition — and built to stay that way.",
     img: car3,
   },
 ];
@@ -40,14 +40,15 @@ export function Process() {
               PROCESS
             </p>
             <h2 className="mt-8 font-display text-[3rem] font-light leading-[1.0] md:text-[4.5rem] lg:text-[6rem]">
-              Three steps.
+              Three stages.
               <br />
               <span className="italic text-foreground/35">Zero compromise.</span>
             </h2>
           </div>
           <p className="max-w-xs text-[0.88rem] leading-[1.9] text-muted-foreground/75 md:text-right">
-            Most clients receive their car within 14–28 days. Some have waited months for
-            the right one. We don&apos;t rush perfection.
+            Most single-stage details are completed same-day. Paint correction
+            and ceramic packages typically take one to two days — perfection
+            can&apos;t be rushed.
           </p>
         </div>
 
@@ -81,7 +82,7 @@ export function Process() {
                   className="mt-8 flex items-center gap-2 text-[8.5px] tracking-[0.3em] text-gold/60 transition-colors group-hover:text-gold"
                   style={{ fontFamily: "var(--font-mono)" }}
                 >
-                  STEP {s.n}
+                  STAGE {s.n}
                   <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
                 </div>
               </div>

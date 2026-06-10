@@ -1,8 +1,8 @@
 const EXPLORE_LINKS = [
-  { label: "Collection", href: "#collection" },
-  { label: "Process",    href: "#process" },
-  { label: "Atelier",    href: "#atelier" },
-  { label: "Contact",    href: "#contact" },
+  { label: "Services", href: "#collection" },
+  { label: "Process",  href: "#process" },
+  { label: "Our Craft", href: "#atelier" },
+  { label: "Book",     href: "#contact" },
 ];
 
 const LEGAL_LINKS  = ["Imprint", "Privacy", "Terms"];
@@ -19,16 +19,17 @@ export function Footer() {
           {/* Brand block */}
           <div className="max-w-[280px]">
             <div className="font-display text-[2.8rem] font-light leading-none tracking-tight">
-              MAISON AUTO
+              POLISH STATION
             </div>
             <div
               className="mt-3 text-[8.5px] tracking-[0.4em] text-muted-foreground/50"
               style={{ fontFamily: "var(--font-mono)" }}
             >
-              CURATED CARS · DELIVERED WITH CARE
+              PREMIUM DETAILING · DELIVERED WITH PRECISION
             </div>
             <p className="mt-8 text-[0.86rem] leading-[1.9] text-muted-foreground/65">
-              Hand-picked European luxury cars, sourced personally and delivered to your door.
+              Professional car detailing, ceramic coating, and paint correction.
+              Precision in every detail.
             </p>
             <div className="mt-8 flex items-center gap-2.5">
               <span className="h-1.5 w-1.5 rounded-full bg-gold animate-pulse" />
@@ -36,7 +37,7 @@ export function Footer() {
                 className="text-[8.5px] tracking-[0.35em] text-gold/60"
                 style={{ fontFamily: "var(--font-mono)" }}
               >
-                ACCEPTING COMMISSIONS
+                BOOKING NOW OPEN
               </span>
             </div>
           </div>
@@ -103,13 +104,13 @@ export function Footer() {
             className="text-[8.5px] tracking-[0.3em] text-muted-foreground/40"
             style={{ fontFamily: "var(--font-mono)" }}
           >
-            © 2026 MAISON AUTO. ALL CARS HAND-PICKED.
+            © 2026 POLISH STATION. ALL DETAILS PERFECTED.
           </div>
           <div
             className="text-[8.5px] tracking-[0.3em] text-muted-foreground/30"
             style={{ fontFamily: "var(--font-mono)" }}
           >
-            CRAFTED WITH REVERENCE IN WARSAW.
+            CRAFTED WITH PRECISION.
           </div>
         </div>
       </div>
