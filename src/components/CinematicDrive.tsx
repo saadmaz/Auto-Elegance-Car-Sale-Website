@@ -23,9 +23,10 @@ export function CinematicDrive() {
   // 0.18 → 0.42 push to center, scale up (arrival)
   // 0.42 → 0.62 hold near center, micro-tilt (the beauty shot)
   // 0.62 → 1.0  launch off to the right, motion-blur (departure)
-  const carX = useTransform(p, [0, 0.2, 0.45, 0.62, 1], ["-90%", "-25%", "0%", "8%", "120%"]);
+  const carX = useTransform(p, [0, 0.2, 0.45, 0.62, 1], ["90%", "25%", "0%", "-8%", "-120%"]);
   const carScale = useTransform(p, [0, 0.2, 0.45, 0.62, 1], [0.55, 0.95, 1.18, 1.22, 0.85]);
-  const carTilt = useTransform(p, [0, 0.45, 0.62, 1], [2, 0, -1, -3]);
+  // left-facing car: positive rotate = nose UP (acceleration), negative = nose DOWN (coasting)
+  const carTilt = useTransform(p, [0, 0.45, 0.62, 1], [-2, 0, 1, 3]);
   const carY = useTransform(p, [0, 0.45, 0.62, 1], [40, 0, 0, -10]);
   const blur = useTransform(p, [0, 0.18, 0.45, 0.62, 0.85, 1], [10, 2, 0, 0, 5, 14]);
   const filter = useMotionTemplate`blur(${blur}px) saturate(1.05)`;
@@ -34,8 +35,8 @@ export function CinematicDrive() {
   const v = useVelocity(p);
   const linesOpacity = useTransform(p, [0, 0.15, 0.85, 1], [0, 1, 1, 0]);
 
-  // Road parallax — moves right-to-left as car travels left-to-right
-  const roadX = useTransform(p, [0, 1], ["20%", "-60%"]);
+  // Road parallax — moves left-to-right as car travels right-to-left
+  const roadX = useTransform(p, [0, 1], ["-20%", "60%"]);
   const roadScale = useTransform(p, [0, 0.5, 1], [1.15, 1.35, 1.55]);
   const roadBlur = useTransform(p, [0, 0.45, 0.62, 1], [4, 0, 0, 8]);
   const roadFilter = useMotionTemplate`blur(${roadBlur}px)`;
@@ -104,10 +105,10 @@ export function CinematicDrive() {
           />
         </motion.div>
 
-        {/* Volumetric headlight cone — origin left-center, cone fans right (forward) */}
+        {/* Volumetric headlight cone — origin right-center, cone fans left (forward for left-facing car) */}
         <motion.div
           style={{ opacity: lightOpacity }}
-          className="pointer-events-none absolute left-[50%] top-[40%] h-[80vh] w-[120vw] origin-left -translate-y-1/2"
+          className="pointer-events-none absolute right-[50%] top-[40%] h-[80vh] w-[120vw] origin-right -translate-y-1/2 scale-x-[-1]"
         >
           <div className="h-full w-full bg-[conic-gradient(from_85deg_at_0%_50%,transparent_0deg,oklch(0.95_0.14_88/0.18)_8deg,transparent_22deg)] blur-2xl" />
         </motion.div>
@@ -165,10 +166,10 @@ export function CinematicDrive() {
           className="relative z-10 w-[85vw] max-w-[1500px]"
         >
           <div className="relative">
-            {/* Trailing light streak — right-full puts it to the LEFT (behind) of the car */}
+            {/* Trailing light streak — left-full puts it to the RIGHT (behind a right-to-left car) */}
             <motion.div
               style={{ opacity: streakOpacity, width: streakWidth }}
-              className="pointer-events-none absolute right-full top-[70%] h-2 -translate-y-1/2 rounded-full bg-linear-to-l from-gold via-gold/40 to-transparent blur-md"
+              className="pointer-events-none absolute left-full top-[70%] h-2 -translate-y-1/2 rounded-full bg-linear-to-r from-gold via-gold/40 to-transparent blur-md"
             />
 
             <img src={carSide} alt="Luxury sports coupe driving" className="w-full" />
