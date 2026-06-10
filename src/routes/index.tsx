@@ -62,11 +62,16 @@ function Index() {
 function SceneFallback({ label, tag, tall }: { label: string; tag: string; tall?: boolean }) {
   return (
     <section
-      className={`content-auto flex items-center justify-center border-y border-border bg-card/40 ${tall ? "h-[90vh]" : "h-[70vh]"}`}
+      className={`content-auto flex items-center justify-center border-y border-border/40 bg-card/30 ${tall ? "h-[90vh]" : "h-[70vh]"}`}
     >
       <div className="text-center">
-        <div className="font-display text-4xl text-gold md:text-5xl">{label}</div>
-        <div className="mt-3 text-xs tracking-[0.4em] text-muted-foreground">{tag}</div>
+        <div className="font-display text-[2.5rem] font-light text-gold/70 md:text-[3.5rem]">{label}</div>
+        <div
+          className="mt-3 text-[9px] tracking-[0.45em] text-muted-foreground/50"
+          style={{ fontFamily: "var(--font-mono)" }}
+        >
+          {tag}
+        </div>
       </div>
     </section>
   );

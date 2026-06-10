@@ -11,7 +11,8 @@ const COLLECTION = [
     price: "€148,000",
     km: "8,200 km",
     img: car1,
-    tag: "Silver Pearl",
+    color: "Silver Pearl",
+    ref: "REF · 087",
   },
   {
     name: "BMW M4 Competition",
@@ -19,7 +20,8 @@ const COLLECTION = [
     price: "€132,500",
     km: "3,400 km",
     img: car2,
-    tag: "Tanzanite Blue",
+    color: "Tanzanite Blue",
+    ref: "REF · 091",
   },
   {
     name: "Audi RS7 Sportback",
@@ -27,93 +29,124 @@ const COLLECTION = [
     price: "€189,000",
     km: "12,100 km",
     img: car3,
-    tag: "Daytona Grey",
+    color: "Daytona Grey",
+    ref: "REF · 094",
   },
 ];
 
 export function Collection() {
   return (
-    <section id="collection" className="content-auto relative overflow-hidden py-32 md:py-52">
-      <div className="mx-auto max-w-400 px-6 md:px-16">
-        <div className="flex items-end justify-between">
+    <section id="collection" className="content-auto relative overflow-hidden py-36 md:py-56">
+      <div className="mx-auto max-w-[1600px] px-8 md:px-16">
+
+        {/* Header */}
+        <div className="flex items-end justify-between border-b border-border/40 pb-16">
           <div>
-            <div className="text-xs tracking-[0.4em] text-gold/80">— COLLECTION</div>
-            <h2 className="mt-8 font-display text-6xl leading-none tracking-tight md:text-7xl">
-              In the garage <span className="italic gold-shine">now</span>.
+            <p
+              className="flex items-center gap-3 text-[9px] tracking-[0.55em] text-gold/65"
+              style={{ fontFamily: "var(--font-mono)" }}
+            >
+              <span className="h-px w-8 bg-gold/40" />
+              COLLECTION
+            </p>
+            <h2 className="mt-8 font-display text-[3rem] font-light leading-[1.0] md:text-[4.5rem] lg:text-[6rem]">
+              In the garage
+              <br />
+              <span className="italic gold-shine">right now.</span>
             </h2>
           </div>
           <a
             href="#contact"
-            className="hidden text-sm text-muted-foreground transition hover:text-gold md:inline"
+            className="hidden text-[0.78rem] tracking-[0.12em] text-muted-foreground/60 transition hover:text-gold md:inline-flex"
+            style={{ fontFamily: "var(--font-sans)" }}
           >
-            Request a custom search →
+            REQUEST A CUSTOM SEARCH →
           </a>
         </div>
 
-        <div className="mt-24 space-y-36">
+        {/* Car listings */}
+        <div className="mt-0 divide-y divide-border/30">
           {COLLECTION.map((car, i) => (
             <motion.div
               key={car.name}
-              initial={{ opacity: 0, y: 80 }}
+              initial={{ opacity: 0, y: 60 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 1 }}
-              className={`grid items-center gap-16 md:grid-cols-2 md:gap-24 ${
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 1.0 }}
+              className={`grid items-center gap-14 py-20 md:grid-cols-2 md:gap-20 ${
                 i % 2 === 1 ? "md:[&>*:first-child]:order-2" : ""
               }`}
             >
+              {/* Image */}
               <TiltCard>
                 <div className="relative">
-                  <div className="absolute -inset-8 rounded-full bg-gradient-radial from-gold/25 via-transparent to-transparent blur-2xl" />
-                  <div className="group/img relative overflow-hidden">
+                  <div className="absolute -inset-8 rounded-full bg-gold/8 blur-3xl opacity-0 transition-opacity duration-700 group-hover/tilt:opacity-100" />
+                  <div className="group/img relative overflow-hidden border border-border/30" style={{ borderRadius: "4px" }}>
                     <img
                       src={car.img}
                       alt={car.name}
-                      className="relative w-full transition-transform duration-700 group-hover/img:scale-[1.03]"
+                      className="relative w-full transition-transform duration-700 group-hover/img:scale-[1.04]"
                       loading="lazy"
                       decoding="async"
                       width={1280}
                       height={768}
                     />
-                    <div className="pointer-events-none absolute inset-y-0 left-0 w-1/3 -skew-x-12 -translate-x-full bg-linear-to-r from-transparent via-white/25 to-transparent transition-transform duration-900 ease-in-out group-hover/img:translate-x-[500%]" />
+                    {/* Paint glint sweep */}
+                    <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 -skew-x-12 -translate-x-full bg-linear-to-r from-transparent via-white/20 to-transparent transition-transform duration-1000 ease-in-out group-hover/img:translate-x-[600%]" />
                   </div>
                 </div>
               </TiltCard>
 
+              {/* Details */}
               <div className="py-4">
-                <div className="flex items-center gap-3 text-xs tracking-[0.3em] text-gold">
-                  <span className="h-px w-8 bg-gold" />
-                  REF. 0{i + 1} · {car.tag.toUpperCase()}
+                <div
+                  className="flex items-center gap-3 text-[9px] tracking-[0.4em] text-gold/70"
+                  style={{ fontFamily: "var(--font-mono)" }}
+                >
+                  <span className="h-px w-8 bg-gold/50" />
+                  {car.ref} · {car.color.toUpperCase()}
                 </div>
-                <h3 className="mt-8 font-display text-5xl leading-[1.05] md:text-6xl">
+
+                <h3 className="mt-8 font-display text-[2.5rem] font-light leading-[1.05] md:text-[3.2rem] lg:text-[4rem]">
                   {car.name}
                 </h3>
-                <div className="mt-10 grid grid-cols-3 gap-px overflow-hidden rounded-xl border border-border bg-border">
+
+                {/* Specs */}
+                <div className="mt-10 grid grid-cols-3 divide-x divide-border/40 border border-border/40" style={{ borderRadius: "2px" }}>
                   {[
-                    { k: car.year, v: "Year" },
-                    { k: car.km, v: "Mileage" },
+                    { k: car.year,  v: "Year" },
+                    { k: car.km,    v: "Mileage" },
                     { k: car.price, v: "Price" },
                   ].map((d) => (
-                    <div key={d.v} className="bg-card px-5 py-6 md:px-6">
-                      <div className="text-xs tracking-widest text-muted-foreground">
+                    <div key={d.v} className="px-5 py-6 md:px-7">
+                      <div
+                        className="text-[8.5px] tracking-[0.3em] text-muted-foreground/55"
+                        style={{ fontFamily: "var(--font-mono)" }}
+                      >
                         {d.v.toUpperCase()}
                       </div>
-                      <div className="mt-2 font-display text-xl">{d.k}</div>
+                      <div className="mt-2.5 font-display text-[1.3rem] font-light">
+                        {d.k}
+                      </div>
                     </div>
                   ))}
                 </div>
-                <div className="mt-10 flex gap-4">
+
+                {/* Actions */}
+                <div className="mt-10 flex gap-3">
                   <a
                     href="#contact"
-                    className="inline-flex items-center gap-2 rounded-full bg-gold px-7 py-3.5 text-sm text-primary-foreground transition hover:scale-[1.02]"
+                    className="inline-flex items-center gap-2 bg-gold px-7 py-3.5 text-[0.78rem] tracking-[0.12em] text-primary-foreground transition hover:opacity-90"
+                    style={{ borderRadius: "2px", fontFamily: "var(--font-sans)" }}
                   >
-                    Reserve this car →
+                    RESERVE THIS CAR →
                   </a>
                   <a
                     href="#contact"
-                    className="inline-flex items-center gap-2 rounded-full border border-foreground/20 px-7 py-3.5 text-sm transition hover:border-gold hover:text-gold"
+                    className="inline-flex items-center border border-foreground/15 px-7 py-3.5 text-[0.78rem] tracking-[0.12em] transition hover:border-gold/50 hover:text-gold"
+                    style={{ borderRadius: "2px", fontFamily: "var(--font-sans)" }}
                   >
-                    Enquire
+                    ENQUIRE
                   </a>
                 </div>
               </div>
